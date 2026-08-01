@@ -1,11 +1,5 @@
 {
   "version": 2,
   "buildCommand": "pnpm build",
-  "outputDirectory": "dist/client",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "outputDirectory": "dist/client"
 }
