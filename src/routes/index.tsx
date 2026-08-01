@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRight, CheckCircle2, Cog, Factory, Gauge, Globe, Layers, ShieldCheck, Wrench, Boxes } from "lucide-react";
 import { useT } from "@/i18n/i18n";
 import { CapabilitiesShowcase } from "@/components/site/capabilities-showcase";
-import { Section, SectionHead } from "@/components/site/section";
+import { Section, SectionHead, useDesktopReveal } from "@/components/site/section";
 import { routeSeo } from "@/lib/seo";
 import heroCnc from "@/assets/hero-cnc.jpg";
 import capFlanges from "@/assets/capability-flanges.jpg";
@@ -102,16 +102,14 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-primary/30" />
       </div>
 
-      <div className="container-x relative pt-20 pb-16 md:pt-28 md:pb-10 flex-1 flex flex-col justify-center">
-        <div className="relative flex max-w-3xl flex-col justify-center space-y-6">
-          {/* ISO 9001 Badge */}
-          <div className="inline-flex w-fit items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-md">
-            <ShieldCheck className="h-4 w-4 text-accent" />
-            <span className="font-bold text-accent">ISO 9001</span>
-            <span className="h-3 w-px bg-white/20" aria-hidden="true" />
-            <span className="text-white/90">{t("Since 1998 · Cairo, Egypt", "منذ 1998 · القاهرة، مصر")}</span>
-          </div>
-
+      <div className="container-x relative flex flex-1 flex-col justify-center pt-12 pb-14 sm:pt-20 sm:pb-16 md:pt-28 md:pb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9"
+        >
+         
           {/* Heading */}
           <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px]">
             {t(
@@ -137,25 +135,30 @@ function Hero() {
           </p>
 
           {/* Action CTAs */}
-          <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Link
               to="/quote"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-lg bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-md transition duration-200 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-[0_18px_40px_-22px_rgba(0,0,0,0.65)] transition duration-200 hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               {t("Request a quotation", "اطلب عرض سعر")}
               <ArrowUpRight className="h-5 w-5" />
             </Link>
             <Link
               to="/capabilities"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-lg border border-white/30 bg-white/10 px-6 py-3.5 text-base font-medium text-white backdrop-blur-md transition duration-200 hover:border-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-base font-medium text-white backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               {t("Explore capabilities", "استكشف قدراتنا")} <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
-        </div>
+        </motion.div>
 
         {/* Slide Indicator & Active Tag */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/15">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-14 sm:mt-12"
+        >
           <div className="flex items-center gap-2">
             {HERO_SLIDES.map((slide, idx) => (
               <button
@@ -170,10 +173,8 @@ function Hero() {
           <div className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80 bg-white/10 px-3 py-1 rounded-md backdrop-blur-sm border border-white/10">
             {t(HERO_SLIDES[currentSlide].tagEn, HERO_SLIDES[currentSlide].tagAr)}
           </div>
-        </div>
+        </motion.div>
       </div>
-
-
     </section>
   );
 }
@@ -204,6 +205,7 @@ function TrustBar() {
 
 function Industries() {
   const t = useT();
+  const isDesktop = useDesktopReveal();
   const items = [
     { titleEn: "Water Infrastructure", titleAr: "شبكات المياه", image: industryWater, descEn: "Flanges, valve bodies and fittings for municipal and industrial water networks.", descAr: "فلانشات وأجسام محابس ووصلات لشبكات المياه البلدية والصناعية." },
     { titleEn: "Oil & Gas", titleAr: "النفط والغاز", image: industryOilgas, descEn: "Machined pressure components and spare parts for upstream and downstream operations.", descAr: "قطع ضغط دقيقة وقطع غيار لعمليات الاستخراج والتكرير." },
@@ -230,8 +232,16 @@ function Industries() {
         </div>
 
         <div className="mt-16 grid gap-px overflow-hidden rounded-xl border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
-          {items.map((i) => (
-            <div key={i.titleEn} className="group relative overflow-hidden bg-background">
+          {items.map((i, index) => (
+            <motion.div
+              key={i.titleEn}
+              initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
+              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+              viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
+              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="group relative overflow-hidden bg-background"
+            >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={i.image}
@@ -247,7 +257,7 @@ function Industries() {
                   <p className="mt-2 max-w-sm text-sm text-white/80">{t(i.descEn, i.descAr)}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -257,6 +267,7 @@ function Industries() {
 
 function WhyUs() {
   const t = useT();
+  const isDesktop = useDesktopReveal();
   const WHY = [
     {
       icon: Cog,
@@ -340,8 +351,13 @@ function WhyUs() {
       <div className="container-x py-12 md:py-20">
         <div className="grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map((w, i) => (
-            <div
+            <motion.div
               key={w.titleEn}
+              initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
+              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+              viewport={isDesktop ? { once: true, amount: 0.15 } : undefined}
+              transition={{ duration: 0.45, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, scale: 1.01 }}
               className="group relative flex flex-col bg-background p-6 transition duration-200 hover:bg-surface/60 sm:p-8"
             >
               {/* Step number */}
@@ -364,7 +380,7 @@ function WhyUs() {
 
               {/* Hover accent line */}
               <div className="mt-6 h-0.5 w-8 rounded-full bg-hairline transition-all duration-300 group-hover:w-16 group-hover:bg-accent" />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -381,6 +397,7 @@ const PRODUCTS = [
 
 function FeaturedProducts() {
   const t = useT();
+  const isDesktop = useDesktopReveal();
   return (
     <section className="bg-surface py-16 sm:py-20 md:py-28">
       <div className="container-x">
@@ -399,8 +416,16 @@ function FeaturedProducts() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {PRODUCTS.map((p) => (
-            <div key={p.code} className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30">
+          {PRODUCTS.map((p, index) => (
+            <motion.div
+              key={p.code}
+              initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
+              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+              viewport={isDesktop ? { once: true, amount: 0.15 } : undefined}
+              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr]">
                 <div className="relative aspect-video sm:aspect-square overflow-hidden bg-surface">
                   <img
@@ -436,7 +461,7 @@ function FeaturedProducts() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -446,6 +471,7 @@ function FeaturedProducts() {
 
 function FactoryStrip() {
   const t = useT();
+  const isDesktop = useDesktopReveal();
   const stats = [
     { value: "18,000", unit: "m²", labelEn: "Facility area", labelAr: "مساحة المصنع" },
     { value: "2", unit: "", labelEn: "Shifts / day", labelAr: "ورديتان / يوم" },
@@ -458,7 +484,13 @@ function FactoryStrip() {
         <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.1fr_1fr]">
 
           {/* Left — Photo */}
-          <div className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px]">
+          <motion.div
+            initial={isDesktop ? { opacity: 0.96, x: -14 } : { opacity: 1, x: 0 }}
+            whileInView={isDesktop ? { opacity: 1, x: 0 } : undefined}
+            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px]"
+          >
             <img
               src={factoryFloor}
               alt={t(
@@ -480,10 +512,16 @@ function FactoryStrip() {
                 ISO 9001
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right — Content panel */}
-          <div className="flex flex-col overflow-hidden rounded-2xl border border-hairline bg-primary text-primary-foreground">
+          <motion.div
+            initial={isDesktop ? { opacity: 0.96, x: 14 } : { opacity: 1, x: 0 }}
+            whileInView={isDesktop ? { opacity: 1, x: 0 } : undefined}
+            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col overflow-hidden rounded-2xl border border-hairline bg-primary text-primary-foreground"
+          >
             <div className="flex flex-1 flex-col justify-between p-6 sm:p-8 md:p-10">
               {/* Eyebrow */}
               <div>
@@ -538,7 +576,7 @@ function FactoryStrip() {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>
@@ -555,6 +593,7 @@ const PROJECTS_DATA = [
 
 function Projects() {
   const t = useT();
+  const isDesktop = useDesktopReveal();
   return (
     <Section>
       <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
@@ -573,8 +612,12 @@ function Projects() {
 
       <div className="mt-12 overflow-hidden rounded-xl border border-hairline sm:mt-16">
         {PROJECTS_DATA.map((p, i) => (
-          <div
+          <motion.div
             key={p.client}
+            initial={isDesktop ? { opacity: 0.96, y: 14 } : { opacity: 1, y: 0 }}
+            whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
+            transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
             className={`grid gap-4 p-6 sm:gap-6 sm:p-8 md:grid-cols-[1fr_1.4fr_auto] md:items-center md:gap-10 ${i > 0 ? "border-t border-hairline" : ""}`}
           >
             <div>
@@ -586,7 +629,7 @@ function Projects() {
               <span className="num-display text-lg font-semibold text-primary">{p.year}</span>
               <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </Section>

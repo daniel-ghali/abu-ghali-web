@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X, ArrowUpRight, Globe } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AGLogo } from "./ag-logo";
 import { useLocale, useT } from "@/i18n/i18n";
@@ -32,15 +32,15 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-all duration-300 border-b",
+        "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-hairline bg-background/95 backdrop-blur-lg shadow-sm py-0"
-          : "border-transparent bg-background/80 backdrop-blur-md py-1"
+          ? "border-hairline/80 bg-background/90 py-0 shadow-[0_10px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur-xl"
+          : "border-transparent bg-background/80 py-1 backdrop-blur-md"
       )}
     >
-      <div className="container-x flex h-14 items-center justify-between gap-3 md:h-16">
+      <div className="container-x flex h-10 items-center justify-between gap-3 md:h-14">
         {/* Brand Logo */}
-        <Link to="/" className="group flex items-center gap-3">
+        <Link to="/" className="group flex items-center gap-3 rounded-full px-1.5 py-1 transition hover:bg-surface/60">
           <div className="relative flex items-center justify-center">
             <AGLogo className="h-8 w-8 text-primary transition duration-300 group-hover:scale-105" />
           </div>
@@ -116,7 +116,7 @@ export function SiteHeader() {
           {/* Request Quote Button */}
           <Link
             to="/quote"
-            className="group hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-sm transition duration-200 hover:bg-accent hover:text-accent-foreground md:inline-flex"
+            className="group hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-[0_10px_30px_-18px_rgba(15,23,42,0.45)] transition duration-200 hover:bg-accent hover:text-accent-foreground md:inline-flex"
           >
             <span>{t("Request quote", "اطلب عرض سعر")}</span>
             <ArrowUpRight className="h-4 w-4 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -124,7 +124,7 @@ export function SiteHeader() {
 
           {/* Mobile Menu Button */}
           <button
-            className="grid h-10 w-10 place-items-center rounded-lg border border-hairline bg-background text-primary lg:hidden transition hover:bg-surface"
+            className="grid h-11 w-11 place-items-center rounded-xl border border-hairline bg-background text-primary shadow-sm transition hover:bg-surface lg:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={open}
@@ -139,12 +139,12 @@ export function SiteHeader() {
         {open && (
           <motion.div
             className="border-t border-hairline bg-background/98 backdrop-blur-xl lg:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            initial={{ opacity: 0, y: -8, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -8, height: 0 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="container-x flex flex-col py-4 space-y-1">
+            <div className="container-x flex flex-col space-y-1 py-4">
               {NAV.map((item) => (
                 <Link
                   key={item.to}
@@ -156,7 +156,7 @@ export function SiteHeader() {
                   {t(item.en, item.ar)}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-hairline">
+              <div className="rounded-2xl border border-hairline bg-gradient-to-b from-surface/70 to-background p-4 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)]">
                 {/* Language toggle in mobile menu */}
                 <div className="mb-3 flex items-center gap-1 rounded-full border border-hairline bg-surface/70 p-1 text-xs font-semibold sm:hidden">
                   <button

@@ -1,6 +1,23 @@
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+
+export function useDesktopReveal() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  return isDesktop;
+}
 
 export function Section({
   children,
@@ -11,12 +28,14 @@ export function Section({
   className?: string;
   bleed?: boolean;
 }) {
+  const isDesktop = useDesktopReveal();
+
   return (
     <motion.section
       className={cn("py-16 sm:py-20 md:py-28", className)}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
+      initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
+      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+      viewport={isDesktop ? { once: true, amount: 0.18 } : undefined}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       {bleed ? children : <div className="container-x">{children}</div>}
@@ -35,15 +54,17 @@ export function SectionHead({
   intro?: ReactNode;
   align?: "left" | "center";
 }) {
+  const isDesktop = useDesktopReveal();
+
   return (
     <motion.div
       className={cn(
         "max-w-3xl",
         align === "center" && "mx-auto text-center",
       )}
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
+      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+      viewport={isDesktop ? { once: true, amount: 0.25 } : undefined}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     >
       {eyebrow ? (
@@ -73,12 +94,14 @@ export function PageHero({
   title: ReactNode;
   intro?: ReactNode;
 }) {
+  const isDesktop = useDesktopReveal();
+
   return (
     <motion.section
       className="relative overflow-hidden bg-primary text-primary-foreground"
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
+      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
+      viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="grid-lines absolute inset-0 opacity-[0.06]" />
