@@ -2,17 +2,18 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { startInstance as baseStartInstance } from "./start";
 
-type ServerEntry = {
-  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+type StartServerInstance = typeof baseStartInstance & {
+  fetch(request: Request, env: unknown, ctx: unknown): Promise<Response> | Response;
 };
 
-let serverEntryPromise: Promise<ServerEntry> | undefined;
+let serverEntryPromise: Promise<{ fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response }> | undefined;
 
-async function getServerEntry(): Promise<ServerEntry> {
+async function getServerEntry() {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
-      (m) => (m.default ?? m) as ServerEntry,
+      (m) => (m.default ?? m) as { fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response },
     );
   }
   return serverEntryPromise;
@@ -67,22 +68,27 @@ function appendSecurityHeaders(response: Response): Response {
   });
 }
 
-export const startInstance = {
-  async fetch(request: Request, env: unknown, ctx: unknown) {
-    try {
-      const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      return appendSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
-    } catch (error) {
-      console.error(error);
-      return appendSecurityHeaders(
-        new Response(renderErrorPage(), {
-          status: 500,
-          headers: { "content-type": "text/html; charset=utf-8" },
-        }),
-      );
-    }
-  },
+const startInstance = Object.create(baseStartInstance) as StartServerInstance;
+
+if (typeof baseStartInstance.getOptions === "function") {
+  startInstance.getOptions = baseStartInstance.getOptions.bind(baseStartInstance);
+}
+
+startInstance.fetch = async function fetch(request: Request, env: unknown, ctx: unknown) {
+  try {
+    const handler = await getServerEntry();
+    const response = await handler.fetch(request, env, ctx);
+    return appendSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
+  } catch (error) {
+    console.error(error);
+    return appendSecurityHeaders(
+      new Response(renderErrorPage(), {
+        status: 500,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      }),
+    );
+  }
 };
 
+export { startInstance };
 export default startInstance;
