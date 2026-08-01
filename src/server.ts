@@ -67,7 +67,7 @@ function appendSecurityHeaders(response: Response): Response {
   });
 }
 
-export default {
+export const startInstance = {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
@@ -84,3 +84,5 @@ export default {
     }
   },
 };
+
+export default startInstance;
