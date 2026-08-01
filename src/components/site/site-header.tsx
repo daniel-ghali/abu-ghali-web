@@ -38,11 +38,11 @@ export function SiteHeader() {
           : "border-transparent bg-background/80 backdrop-blur-md py-1"
       )}
     >
-      <div className="container-x flex h-16 items-center justify-between gap-4 md:h-20">
+      <div className="container-x flex h-14 items-center justify-between gap-3 md:h-16">
         {/* Brand Logo */}
         <Link to="/" className="group flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <AGLogo className="h-10 w-10 text-primary transition duration-300 group-hover:scale-105" />
+            <AGLogo className="h-8 w-8 text-primary transition duration-300 group-hover:scale-105" />
           </div>
           <div className="flex flex-col leading-none">
             <span
@@ -70,7 +70,7 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="relative rounded-full px-3.5 py-1.5 text-xs font-semibold text-primary/80 transition duration-200 hover:text-primary hover:bg-background/80"
+              className="relative rounded-full px-3 py-1.25 text-xs font-semibold text-primary/80 transition duration-200 hover:text-primary hover:bg-background/80"
               activeProps={{
                 className: "text-accent font-bold bg-background shadow-xs border border-hairline/80",
               }}
@@ -116,7 +116,7 @@ export function SiteHeader() {
           {/* Request Quote Button */}
           <Link
             to="/quote"
-            className="group hidden items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground shadow-sm transition duration-200 hover:bg-accent hover:text-accent-foreground md:inline-flex"
+            className="group hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-sm transition duration-200 hover:bg-accent hover:text-accent-foreground md:inline-flex"
           >
             <span>{t("Request quote", "اطلب عرض سعر")}</span>
             <ArrowUpRight className="h-4 w-4 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -124,7 +124,7 @@ export function SiteHeader() {
 
           {/* Mobile Menu Button */}
           <button
-            className="grid h-11 w-11 place-items-center rounded-lg border border-hairline bg-background text-primary lg:hidden transition hover:bg-surface"
+            className="grid h-10 w-10 place-items-center rounded-lg border border-hairline bg-background text-primary lg:hidden transition hover:bg-surface"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={open}

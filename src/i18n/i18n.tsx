@@ -13,7 +13,7 @@ const LocaleContext = createContext<Ctx | null>(null);
 const STORAGE_KEY = "ag-locale";
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const [locale, setLocaleState] = useState<Locale>("ar");
 
   useEffect(() => {
     try {
@@ -48,7 +48,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
 
 export function useLocale(): Ctx {
   const ctx = useContext(LocaleContext);
-  if (!ctx) return { locale: "en", setLocale: () => {}, dir: "ltr", isAr: false };
+  if (!ctx) return { locale: "ar", setLocale: () => {}, dir: "rtl", isAr: true };
   return ctx;
 }
 
