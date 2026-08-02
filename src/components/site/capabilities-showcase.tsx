@@ -170,16 +170,16 @@ export function CapabilitiesShowcase() {
             ))}
           </dl>
         </Reveal>
-        {/* Workflow Pipeline Section */}
+        {/* Workflow Process Section - Minimal Style */}
         <Reveal amount={0.1}>
-          <div className="mt-16 border-y border-hairline py-16">
+          <div className="mt-10">
             <HeadingAnimation delay={0.1}>
-              <h3 className="text-2xl font-semibold text-primary sm:text-3xl mb-12">
+              <h3 className="mb-6 text-center text-lg font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                 {t("A structured, six-stage process", "مراحل تصنيع منظمّة في 6 خطوات")}
               </h3>
             </HeadingAnimation>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline sm:grid-cols-3 lg:grid-cols-6">
               {flow.map((step, i) => {
                 const StepIcon = step.icon;
                 return (
@@ -188,19 +188,21 @@ export function CapabilitiesShowcase() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-                    className="flex flex-col"
+                    transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
+                    className="flex flex-col items-center bg-card p-5 text-center transition hover:bg-surface/60"
                   >
-                    {/* Number and Icon */}
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-mono font-semibold text-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <StepIcon className="h-5 w-5 text-primary/60" strokeWidth={1.5} />
+                    {/* Icon */}
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                      <StepIcon className="h-5 w-5" strokeWidth={2} />
+                    </div>
+
+                    {/* Number */}
+                    <div className="num-display mt-3 text-xl font-bold tracking-tight text-primary">
+                      {String(i + 1).padStart(2, "0")}
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-base font-medium leading-snug text-primary">
+                    <h4 className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
                       {t(step.en, step.ar)}
                     </h4>
                   </motion.div>

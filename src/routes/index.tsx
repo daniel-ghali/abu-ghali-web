@@ -72,6 +72,7 @@ function Hero() {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -79,6 +80,11 @@ function Hero() {
     }, 6000);
     return () => clearInterval(timer);
   }, [HERO_SLIDES.length]);
+
+  // Reset animation on mount/remount
+  useEffect(() => {
+    setAnimationKey(prev => prev + 1);
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground min-h-[560px] sm:min-h-[620px] md:min-h-[730px] flex flex-col justify-between">
@@ -109,7 +115,7 @@ function Hero() {
       </div>
 
       <div className="container-x relative flex flex-1 flex-col justify-center pt-12 pb-14 sm:pt-20 sm:pb-16 md:pt-28 md:pb-10">
-        <div className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9">
+        <div key={animationKey} className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9">
          
           {/* Heading with sophisticated staggered animation */}
           <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px]">
@@ -118,7 +124,7 @@ function Hero() {
                   <motion.div
                     initial={{ opacity: 0, x: -40 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                     className="inline-block"
                   >
                     Engineered in Egypt.
@@ -127,7 +133,7 @@ function Hero() {
                   <motion.div
                     initial={{ opacity: 0, x: -40 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
                     className="inline-block"
                   >
                     Trusted <span className="text-accent">worldwide.</span>
@@ -137,7 +143,7 @@ function Hero() {
                   <motion.div
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                     className="inline-block"
                   >
                     هندسة مصرية
@@ -146,7 +152,7 @@ function Hero() {
                   <motion.div
                     initial={{ opacity: 0, x: 40 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
                     className="inline-block"
                   >
                     بجودة <span className="text-accent">عالمية.</span>
@@ -159,7 +165,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
           >
             <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-xl font-normal">
               {t(
@@ -174,7 +180,7 @@ function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
             >
               <Link
                 to="/quote"
@@ -187,7 +193,7 @@ function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.95, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
             >
               <Link
                 to="/capabilities"
@@ -203,7 +209,7 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.85, ease: "easeOut" }}
           className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-14 sm:mt-12"
         >
           <div className="flex items-center gap-2">
@@ -222,7 +228,7 @@ function Hero() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 1.25, ease: "easeOut" }}
+            transition={{ duration: 0.5, delay: 1, ease: "easeOut" }}
             className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80 bg-white/10 px-3 py-1 rounded-md backdrop-blur-sm border border-white/10"
           >
             {t(HERO_SLIDES[currentSlide].tagEn, HERO_SLIDES[currentSlide].tagAr)}
