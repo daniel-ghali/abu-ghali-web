@@ -99,25 +99,52 @@ export function PageHero({
   return (
     <motion.section
       className="relative overflow-hidden bg-primary text-primary-foreground"
-      initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
-      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-      viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      initial={isDesktop ? { opacity: 0.9 } : { opacity: 1 }}
+      whileInView={isDesktop ? { opacity: 1 } : undefined}
+      viewport={isDesktop ? { once: false, amount: 0.2 } : undefined}
+      transition={{ duration: 1, ease: "easeOut" }}
     >
       <div className="grid-lines absolute inset-0 opacity-[0.06]" />
       <div className="container-x relative py-20 md:py-28">
         <div className="max-w-4xl">
-          <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
+          {/* Animated eyebrow with slide and fade */}
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent"
+          >
             <span className="inline-block h-px w-8 bg-accent" />
             {eyebrow}
-          </div>
-          <h1 className="mt-6 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl">
+          </motion.div>
+
+          {/* Animated title with sophisticated reveal from right */}
+          <motion.h1
+            className="mt-6 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-5xl md:text-6xl"
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ 
+              duration: 1.2, 
+              delay: 0.25, 
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
             {title}
-          </h1>
+          </motion.h1>
+
+          {/* Animated intro text with fade animation */}
           {intro ? (
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg md:text-xl">
+            <motion.p 
+              className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg md:text-xl"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            >
               {intro}
-            </p>
+            </motion.p>
           ) : null}
         </div>
       </div>

@@ -75,7 +75,7 @@ export function Reveal({
       initial={getInitial()}
       whileInView={isDesktop && !shouldReduceMotion ? { opacity: 1, x: 0, y: 0 } : undefined}
       viewport={isDesktop && !shouldReduceMotion ? { once, amount } : undefined}
-      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>

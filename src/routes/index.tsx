@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRight, CheckCircle2, Cog, Factory, Gauge, Globe, Layers, ShieldCheck, Wrench, Boxes } from "lucide-react";
 import { useT, useLocale } from "@/i18n/i18n";
@@ -109,68 +109,61 @@ function Hero() {
       </div>
 
       <div className="container-x relative flex flex-1 flex-col justify-center pt-12 pb-14 sm:pt-20 sm:pb-16 md:pt-28 md:pb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9"
-        >
+        <div className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9">
          
-          {/* Heading with staggered animation */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px] overflow-hidden">
+          {/* Heading with sophisticated staggered animation */}
+          <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px]">
               {t(
                 <>
                   <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0, ease: [0.34, 1.56, 0.64, 1] }}
+                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                     className="inline-block"
+                    style={{ transformPerspective: 1000 }}
                   >
                     Engineered in Egypt.
                   </motion.div>
                   <br />
                   <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="inline-block"
+                    style={{ transformPerspective: 1000 }}
                   >
                     Trusted <span className="text-accent">worldwide.</span>
                   </motion.div>
                 </>,
                 <>
                   <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0, ease: [0.34, 1.56, 0.64, 1] }}
+                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                     className="inline-block"
+                    style={{ transformPerspective: 1000 }}
                   >
                     هندسة مصرية
                   </motion.div>
                   <br />
                   <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     className="inline-block"
+                    style={{ transformPerspective: 1000 }}
                   >
                     بجودة <span className="text-accent">عالمية.</span>
                   </motion.div>
                 </>,
               )}
             </h1>
-          </motion.div>
 
-          {/* Description with fade and slide animation */}
+          {/* Description with professional fade animation */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-xl font-normal">
               {t(
@@ -180,19 +173,12 @@ function Hero() {
             </p>
           </motion.div>
 
-          {/* Action CTAs with staggered appearance */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
-          >
+          {/* Action CTAs with professional staggered appearance */}
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
                 to="/quote"
@@ -203,11 +189,9 @@ function Hero() {
               </Link>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
                 to="/capabilities"
@@ -216,14 +200,14 @@ function Hero() {
                 {t("Explore capabilities", "استكشف قدراتنا")} <ArrowRight className="h-5 w-5" />
               </Link>
             </motion.div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        {/* Slide Indicator & Active Tag */}
+        {/* Slide Indicator & Active Tag with elegant fade-up */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
           className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-14 sm:mt-12"
         >
           <div className="flex items-center gap-2">
@@ -264,12 +248,8 @@ function TrustBar() {
     t("Global export capability", "قدرة تصدير عالمية"),
   ];
   
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  
   return (
-    <motion.div ref={ref} style={{ opacity }} className="border-y border-hairline bg-surface">
+    <div className="border-y border-hairline bg-surface">
       <div className="container-x flex flex-wrap items-center justify-between gap-x-10 gap-y-4 py-6">
         {items.map((i, idx) => (
           <motion.div 
@@ -285,7 +265,7 @@ function TrustBar() {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -330,16 +310,15 @@ function Industries() {
           {items.map((i, index) => (
             <motion.div
               key={i.titleEn}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ 
-                duration: 0.5, 
+                duration: 0.8, 
                 delay: index * 0.08, 
-                ease: [0.16, 1, 0.3, 1] 
+                ease: "easeOut"
               }}
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="group relative overflow-hidden bg-background cursor-pointer"
+              className="group relative overflow-hidden bg-background"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -348,7 +327,7 @@ function Industries() {
                   loading="lazy"
                   width={1280}
                   height={960}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
@@ -465,16 +444,15 @@ function WhyUs() {
           {WHY.map((w, i) => (
             <motion.div
               key={w.titleEn}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ 
-                duration: 0.5, 
+                duration: 0.8, 
                 delay: i * 0.06, 
-                ease: [0.16, 1, 0.3, 1] 
+                ease: "easeOut"
               }}
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="group relative flex flex-col bg-background p-6 transition duration-200 hover:bg-surface/60 sm:p-8 cursor-pointer"
+              className="group relative flex flex-col bg-background p-6 sm:p-8"
             >
               {/* Step number */}
               <span className="num-display absolute top-6 inset-e-7 text-[42px] font-black text-primary/6 select-none">
@@ -482,12 +460,9 @@ function WhyUs() {
               </span>
 
               {/* Icon */}
-              <motion.div 
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface text-accent transition duration-200 group-hover:border-accent/40 group-hover:bg-accent/5"
-              >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface text-accent">
                 <w.icon className="h-6 w-6" />
-              </motion.div>
+              </div>
 
               {/* Content */}
               <ScrollHeadingAnimation>
@@ -499,8 +474,8 @@ function WhyUs() {
                 {t(w.descEn, w.descAr)}
               </p>
 
-              {/* Hover accent line */}
-              <div className="mt-6 h-0.5 w-8 rounded-full bg-hairline transition-all duration-300 group-hover:w-16 group-hover:bg-accent" />
+              {/* Accent line */}
+              <div className="mt-6 h-0.5 w-8 rounded-full bg-hairline" />
             </motion.div>
           ))}
         </div>
@@ -546,27 +521,24 @@ function FeaturedProducts() {
           {PRODUCTS.map((p, index) => (
             <motion.div
               key={p.code}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.15 }}
               transition={{ 
-                duration: 0.5, 
+                duration: 0.8, 
                 delay: index * 0.1, 
-                ease: [0.16, 1, 0.3, 1] 
+                ease: "easeOut"
               }}
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30 cursor-pointer"
+              className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background"
             >
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr]">
                 <div className="relative aspect-video sm:aspect-square overflow-hidden bg-surface">
-                  <motion.img
+                  <img
                     src={p.title.includes("Flange") ? capFlanges : p.title.includes("Cylinder") ? capHydraulics : p.title.includes("Cast") ? capCasting : capRubber}
                     alt={p.title}
                     loading="lazy"
                     width={800}
                     height={800}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -592,9 +564,9 @@ function FeaturedProducts() {
                   </dl>
                   <Link
                     to="/quote"
-                    className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent"
+                    className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-primary"
                   >
-                    {t("Request quotation", "اطلب عرض سعر")} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                    {t("Request quotation", "اطلب عرض سعر")} <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -621,7 +593,7 @@ function FactoryStrip() {
         <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.1fr_1fr]">
 
           {/* Left — Photo */}
-          <div className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px] group hover:scale-[1.02] transition duration-700">
+          <div className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px]">
             <img
               src={factoryFloor}
               alt={t(
@@ -696,10 +668,10 @@ function FactoryStrip() {
                 {/* CTA */}
                 <Link
                   to="/factory"
-                  className="group mt-6 flex min-h-[48px] items-center justify-between rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white transition duration-200 hover:border-accent/50 hover:bg-white/10"
+                  className="mt-6 flex min-h-[48px] items-center justify-between rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white"
                 >
                   <span>{t("Take the factory tour", "جولة داخل المصنع")}</span>
-                  <ArrowUpRight className="h-5 w-5 text-accent transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="h-5 w-5 text-accent" />
                 </Link>
               </div>
             </div>
@@ -784,16 +756,15 @@ function Projects() {
         {PROJECTS_DATA.map((p, i) => (
           <motion.div
             key={isAr ? p.clientAr : p.clientEn}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ 
-              duration: 0.45, 
+              duration: 0.8, 
               delay: i * 0.08, 
-              ease: [0.16, 1, 0.3, 1] 
+              ease: "easeOut"
             }}
-            whileHover={{ x: 4 }}
-            className={`grid gap-4 p-6 sm:gap-6 sm:p-8 md:grid-cols-[1fr_1.4fr_auto] md:items-center md:gap-10 transition duration-200 hover:bg-surface/40 cursor-pointer ${i > 0 ? "border-t border-hairline" : ""}`}
+            className={`grid gap-4 p-6 sm:gap-6 sm:p-8 md:grid-cols-[1fr_1.4fr_auto] md:items-center md:gap-10 ${i > 0 ? "border-t border-hairline" : ""}`}
           >
             <div>
               <div className="eyebrow text-accent">{isAr ? p.industryAr : p.industryEn}</div>
@@ -806,7 +777,7 @@ function Projects() {
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">{isAr ? p.scopeAr : p.scopeEn}</p>
             <div className="flex items-center justify-between gap-6 md:justify-end">
               <span className="num-display text-lg font-semibold text-primary">{isAr ? p.yearAr : p.yearEn}</span>
-              <ArrowUpRight className="h-5 w-5 text-muted-foreground transition group-hover:text-accent" />
+              <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
             </div>
           </motion.div>
         ))}
@@ -847,10 +818,10 @@ function Numbers() {
           {stats.map((s, idx) => (
             <motion.div 
               key={String(s.l)}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              transition={{ duration: 0.8, delay: idx * 0.08, ease: "easeOut" }}
               className="bg-primary p-6 sm:p-8"
             >
               <dt className="num-display text-4xl font-bold text-white sm:text-5xl md:text-6xl">
@@ -868,36 +839,14 @@ function Numbers() {
 // keep unused import trimmed
 void Boxes;
 
-// Reusable heading animation component - repeats every scroll
+// Reusable heading animation component - repeats every scroll with buttery smooth easing
 function ScrollHeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, x: 100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ duration: 0.9, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>

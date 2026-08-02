@@ -66,6 +66,7 @@ const CAPS: Cap[] = [
     specs: [
       { kEn: "Weight", kAr: "الأوزان", v: "0.2 – 250 kg" },
       { kEn: "Alloys", kAr: "الخامات", v: "Iron · Bronze · Al" },
+      { kEn: "Pressure", kAr: "الضغط", v: "PN10 – PN40" },
     ],
   },
   {
@@ -214,7 +215,7 @@ function CapabilityCard({ cap }: { cap: Cap }) {
   const t = useT();
   return (
     <CardAnimation>
-      <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg">
+      <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card transition ">
         <div className="relative aspect-16/10 overflow-hidden bg-surface">
           <img
             src={cap.image}
@@ -222,7 +223,7 @@ function CapabilityCard({ cap }: { cap: Cap }) {
             loading="lazy"
             width={1600}
             height={1000}
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+            className="h-full w-full object-cover transition duration-700 "
           />
           <span className="num-display absolute inset-s-4 top-4 rounded-md bg-primary/85 px-2 py-1 text-[11px] font-semibold text-primary-foreground backdrop-blur">
             {cap.n}
@@ -256,7 +257,7 @@ function CapabilityCard({ cap }: { cap: Cap }) {
   );
 }
 
-// Reusable heading animation component - repeats every scroll
+// Reusable heading animation component - repeats every scroll with buttery smooth motion
 function HeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = useState(false);
@@ -285,21 +286,27 @@ function HeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; 
       ref={ref}
       initial={{ opacity: 0, x: 100 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.9, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   );
 }
 
-// Card fade-up animation component - repeats every scroll
+// Card fade-up animation component - repeats every scroll with smooth buttery effect
 function CardAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ amount: 0.15, once: false }}
-      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ 
+        duration: 0.8, 
+        delay, 
+        ease: "easeOut",
+        scale: { duration: 0.8, ease: "easeOut" }
+      }}
+      whileHover={{ y: -2, transition: { duration: 0.3, ease: "easeOut" } }}
     >
       {children}
     </motion.div>
