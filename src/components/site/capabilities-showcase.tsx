@@ -172,29 +172,41 @@ export function CapabilitiesShowcase() {
         </Reveal>
         {/* Workflow Pipeline Section */}
         <Reveal amount={0.1}>
-          <div className="mt-16 border-y border-hairline py-14">
+          <div className="mt-16 border-y border-hairline py-16">
             <HeadingAnimation delay={0.1}>
-              <h3 className="text-2xl font-semibold text-primary sm:text-3xl">
+              <h3 className="text-2xl font-semibold text-primary sm:text-3xl mb-12">
                 {t("A structured, six-stage process", "مراحل تصنيع منظمّة في 6 خطوات")}
               </h3>
             </HeadingAnimation>
 
-            <ol className="mt-12 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
               {flow.map((step, i) => {
                 const StepIcon = step.icon;
                 return (
-                  <li key={step.en} className="border-t-2 border-hairline pt-6">
-                    <div className="flex items-center gap-2.5 text-accent">
-                      <StepIcon className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
-                      <span className="font-mono text-sm font-semibold">{String(i + 1).padStart(2, "0")}</span>
+                  <motion.div
+                    key={step.en}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+                    className="flex flex-col"
+                  >
+                    {/* Number and Icon */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-sm font-mono font-semibold text-accent">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <StepIcon className="h-5 w-5 text-primary/60" strokeWidth={1.5} />
                     </div>
-                    <h4 className="mt-4 text-base font-medium leading-snug text-primary sm:text-lg">
+
+                    {/* Title */}
+                    <h4 className="text-base font-medium leading-snug text-primary">
                       {t(step.en, step.ar)}
                     </h4>
-                  </li>
+                  </motion.div>
                 );
               })}
-            </ol>
+            </div>
           </div>
         </Reveal>
 
