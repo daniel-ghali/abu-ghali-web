@@ -303,9 +303,16 @@ function Industries() {
               )}
             />
           </motion.div>
-          <Link to="/industries" className="ag-link text-sm">
-            {t("All industries", "كل القطاعات")} <ArrowRight className="h-4 w-4" />
-          </Link>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          >
+            <Link to="/industries" className="ag-link text-sm">
+              {t("All industries", "كل القطاعات")} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
         </div>
 
         <div className="mt-16 grid gap-px overflow-hidden rounded-xl border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
@@ -333,11 +340,15 @@ function Industries() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                  <ScrollHeadingAnimation>
-                    <h3 className="text-2xl font-semibold">
-                      {t(i.titleEn, i.titleAr)}
-                    </h3>
-                  </ScrollHeadingAnimation>
+                  <motion.h3
+                    className="text-2xl font-semibold"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: index * 0.08 + 0.2, ease: "easeOut" }}
+                  >
+                    {t(i.titleEn, i.titleAr)}
+                  </motion.h3>
                   <p className="mt-2 max-w-sm text-sm text-white/80">{t(i.descEn, i.descAr)}</p>
                 </div>
               </div>
@@ -415,14 +426,18 @@ function WhyUs() {
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {t("Why Abu Ghali", "لماذا أبو غالي")}
               </div>
-              <ScrollHeadingAnimation>
-                <h2 className="mt-5 text-4xl font-bold leading-[1.06] tracking-tight md:text-5xl">
-                  {t(
-                    <>Engineering discipline,<br />industrial capacity.</>,
-                    <>انضباط هندسي<br />وطاقة صناعية.</>,
-                  )}
-                </h2>
-              </ScrollHeadingAnimation>
+              <motion.h2
+                className="mt-5 text-4xl font-bold leading-[1.06] tracking-tight md:text-5xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                {t(
+                  <>Engineering discipline,<br />industrial capacity.</>,
+                  <>انضباط هندسي<br />وطاقة صناعية.</>,
+                )}
+              </motion.h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">
                 {t(
                   "We compete on the things that actually matter to procurement and engineering teams: predictability, tolerance, documentation and delivery.",
@@ -467,11 +482,15 @@ function WhyUs() {
               </div>
 
               {/* Content */}
-              <ScrollHeadingAnimation>
-                <h3 className="mt-6 text-lg font-bold text-primary">
-                  {t(w.titleEn, w.titleAr)}
-                </h3>
-              </ScrollHeadingAnimation>
+              <motion.h3
+                className="mt-6 text-lg font-bold text-primary"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: i * 0.06 + 0.2, ease: "easeOut" }}
+              >
+                {t(w.titleEn, w.titleAr)}
+              </motion.h3>
               <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground flex-1">
                 {t(w.descEn, w.descAr)}
               </p>
@@ -548,11 +567,15 @@ function FeaturedProducts() {
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                     {p.code}
                   </div>
-                  <ScrollHeadingAnimation>
-                    <h3 className="mt-3 text-xl font-semibold leading-snug text-primary">
-                      {p.title}
-                    </h3>
-                  </ScrollHeadingAnimation>
+                  <motion.h3
+                    className="mt-3 text-xl font-semibold leading-snug text-primary"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 + 0.2, ease: "easeOut" }}
+                  >
+                    {p.title}
+                  </motion.h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                   <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-hairline pt-4 text-xs">
                     <div>
@@ -630,14 +653,18 @@ function FactoryStrip() {
                 </div>
 
                 {/* Heading */}
-                <ScrollHeadingAnimation>
-                  <h2 className="mt-6 text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
-                    {t(
-                      <>One facility.<br />Every process.<br /><span className="text-accent">Total accountability.</span></>,
-                      <>منشأة واحدة.<br />كل العمليات.<br /><span className="text-accent">مسؤولية كاملة.</span></>,
-                    )}
-                  </h2>
-                </ScrollHeadingAnimation>
+                <motion.h2
+                  className="mt-6 text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                >
+                  {t(
+                    <>One facility.<br />Every process.<br /><span className="text-accent">Total accountability.</span></>,
+                    <>منشأة واحدة.<br />كل العمليات.<br /><span className="text-accent">مسؤولية كاملة.</span></>,
+                  )}
+                </motion.h2>
 
                 {/* Body */}
                 <p className="mt-5 text-sm leading-relaxed text-white/70 md:text-base">
@@ -770,11 +797,15 @@ function Projects() {
           >
             <div>
               <div className="eyebrow text-accent">{isAr ? p.industryAr : p.industryEn}</div>
-              <ScrollHeadingAnimation>
-                <h3 className="mt-2 text-lg font-semibold text-primary sm:mt-3 sm:text-xl">
-                  {isAr ? p.clientAr : p.clientEn}
-                </h3>
-              </ScrollHeadingAnimation>
+              <motion.h3
+                className="mt-2 text-lg font-semibold text-primary sm:mt-3 sm:text-xl"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: i * 0.08 + 0.2, ease: "easeOut" }}
+              >
+                {isAr ? p.clientAr : p.clientEn}
+              </motion.h3>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">{isAr ? p.scopeAr : p.scopeEn}</p>
             <div className="flex items-center justify-between gap-6 md:justify-end">
@@ -840,18 +871,4 @@ function Numbers() {
 
 // keep unused import trimmed
 void Boxes;
-
-// Reusable heading animation component - repeats every scroll with buttery smooth easing
-function ScrollHeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
-      transition={{ duration: 0.9, delay, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 

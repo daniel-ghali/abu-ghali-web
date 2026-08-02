@@ -153,64 +153,67 @@ export function CapabilitiesShowcase() {
           </p>
         </HeadingAnimation>
 
-        <Reveal amount={0.1}>
-          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline lg:grid-cols-4">
-            {trust.map((s) => (
-              <div
-                key={s.en}
-                className="bg-card p-5 text-left rtl:text-right transition hover:bg-surface/60 md:p-6"
-              >
-                <dt className="num-display text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
-                  {s.k}
-                </dt>
-                <dd className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                  {t(s.en, s.ar)}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
-        {/* Workflow Process Section - Minimal Style */}
-        <Reveal amount={0.1}>
-          <div className="mt-10">
-            <HeadingAnimation delay={0.1}>
-              <h3 className="mb-6 text-center text-lg font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                {t("A structured, six-stage process", "مراحل تصنيع منظمّة في 6 خطوات")}
-              </h3>
-            </HeadingAnimation>
-
-            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline sm:grid-cols-3 lg:grid-cols-6">
-              {flow.map((step, i) => {
-                const StepIcon = step.icon;
-                return (
-                  <motion.div
-                    key={step.en}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: i * 0.06, ease: "easeOut" }}
-                    className="flex flex-col items-center bg-card p-5 text-center transition hover:bg-surface/60"
-                  >
-                    {/* Icon */}
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
-                      <StepIcon className="h-5 w-5" strokeWidth={2} />
-                    </div>
-
-                    {/* Number */}
-                    <div className="num-display mt-3 text-xl font-bold tracking-tight text-primary">
-                      {String(i + 1).padStart(2, "0")}
-                    </div>
-
-                    {/* Title */}
-                    <h4 className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                      {t(step.en, step.ar)}
-                    </h4>
-                  </motion.div>
-                );
-              })}
+        <motion.dl
+          className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline lg:grid-cols-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        >
+          {trust.map((s) => (
+            <div
+              key={s.en}
+              className="bg-card p-5 text-left rtl:text-right transition hover:bg-surface/60 md:p-6"
+            >
+              <dt className="num-display text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
+                {s.k}
+              </dt>
+              <dd className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                {t(s.en, s.ar)}
+              </dd>
             </div>
+          ))}
+        </motion.dl>
+        {/* Workflow Process Section - Minimal Style */}
+        <div className="mt-10">
+          <motion.h3
+            className="mb-6 text-center text-lg font-semibold uppercase tracking-[0.14em] text-muted-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
+          >
+            {t("A structured, six-stage process", "مراحل تصنيع منظمّة في 6 خطوات")}
+          </motion.h3>
+
+          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline sm:grid-cols-3 lg:grid-cols-6">
+            {flow.map((step, i) => {
+              const StepIcon = step.icon;
+              return (
+                <motion.div
+                  key={step.en}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.45 + i * 0.06, ease: "easeOut" }}
+                  className="flex flex-col items-center bg-card p-5 text-center transition hover:bg-surface/60"
+                >
+                  {/* Icon */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                    <StepIcon className="h-5 w-5" strokeWidth={2} />
+                  </div>
+
+                  {/* Number */}
+                  <div className="num-display mt-3 text-xl font-bold tracking-tight text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+
+                  {/* Title */}
+                  <h4 className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    {t(step.en, step.ar)}
+                  </h4>
+                </motion.div>
+              );
+            })}
           </div>
-        </Reveal>
+        </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {CAPS.map((c, index) => (
@@ -270,13 +273,12 @@ function CapabilityCard({ cap }: { cap: Cap }) {
   );
 }
 
-// Reusable heading animation component - plays once on first view
+// Reusable heading animation component - animates immediately on mount
 function HeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 60 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.2, margin: "0px 0px -100px 0px" }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7, delay, ease: "easeOut" }}
     >
       {children}
