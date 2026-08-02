@@ -35,10 +35,10 @@ export function Reveal({
   className,
   direction = "up",
   delay = 0,
-  duration = 0.55,
-  once = true,
-  amount = 0.15,
-  offset = 18,
+  duration = 0.5,
+  once = false,
+  amount = 0.1,
+  offset = 20,
 }: {
   children: ReactNode;
   className?: string;
@@ -55,16 +55,16 @@ export function Reveal({
     if (shouldReduceMotion) return { opacity: 1, x: 0, y: 0 };
     switch (direction) {
       case "up":
-        return { opacity: 0.96, y: offset };
+        return { opacity: 0, y: offset };
       case "down":
-        return { opacity: 0.96, y: -offset };
+        return { opacity: 0, y: -offset };
       case "left":
-        return { opacity: 0.96, x: offset };
+        return { opacity: 0, x: offset };
       case "right":
-        return { opacity: 0.96, x: -offset };
+        return { opacity: 0, x: -offset };
       case "none":
       default:
-        return { opacity: 0.96 };
+        return { opacity: 0 };
     }
   };
 
@@ -73,7 +73,7 @@ export function Reveal({
       className={cn(className)}
       initial={getInitial()}
       whileInView={!shouldReduceMotion ? { opacity: 1, x: 0, y: 0 } : undefined}
-      viewport={!shouldReduceMotion ? { once, amount } : undefined}
+      viewport={!shouldReduceMotion ? { once: true, amount, margin: "0px 0px -100px 0px" } : undefined}
       transition={{ duration, delay, ease: "easeOut" }}
     >
       {children}

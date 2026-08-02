@@ -116,42 +116,38 @@ function Hero() {
               {t(
                 <>
                   <motion.div
-                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                     className="inline-block"
-                    style={{ transformPerspective: 1000 }}
                   >
                     Engineered in Egypt.
                   </motion.div>
                   <br />
                   <motion.div
-                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                     className="inline-block"
-                    style={{ transformPerspective: 1000 }}
                   >
                     Trusted <span className="text-accent">worldwide.</span>
                   </motion.div>
                 </>,
                 <>
                   <motion.div
-                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                     className="inline-block"
-                    style={{ transformPerspective: 1000 }}
                   >
                     هندسة مصرية
                   </motion.div>
                   <br />
                   <motion.div
-                    initial={{ opacity: 0, y: 60, rotateX: 20 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                     className="inline-block"
-                    style={{ transformPerspective: 1000 }}
                   >
                     بجودة <span className="text-accent">عالمية.</span>
                   </motion.div>
@@ -161,9 +157,9 @@ function Hero() {
 
           {/* Description with professional fade animation */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           >
             <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-xl font-normal">
               {t(
@@ -176,9 +172,9 @@ function Hero() {
           {/* Action CTAs with professional staggered appearance */}
           <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
             >
               <Link
                 to="/quote"
@@ -189,9 +185,9 @@ function Hero() {
               </Link>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.95, ease: "easeOut" }}
             >
               <Link
                 to="/capabilities"
@@ -207,7 +203,7 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
           className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-14 sm:mt-12"
         >
           <div className="flex items-center gap-2">
@@ -224,9 +220,9 @@ function Hero() {
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 1.25, ease: "easeOut" }}
             className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80 bg-white/10 px-3 py-1 rounded-md backdrop-blur-sm border border-white/10"
           >
             {t(HERO_SLIDES[currentSlide].tagEn, HERO_SLIDES[currentSlide].tagAr)}
@@ -256,8 +252,8 @@ function TrustBar() {
             key={String(i)} 
             initial={{ opacity: 0, x: -12 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ duration: 0.4, delay: idx * 0.05 }}
+            viewport={{ once: true, amount: 0.5, margin: "0px 0px -100px 0px" }}
+            transition={{ duration: 0.4, delay: idx * 0.05, ease: "easeOut" }}
             className="flex items-center gap-2 text-sm font-medium text-primary/80"
           >
             <CheckCircle2 className="h-4 w-4 text-accent" />
@@ -289,8 +285,8 @@ function Industries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <SectionHead
               eyebrow={t("Industries served", "القطاعات التي نخدمها")}
@@ -312,7 +308,7 @@ function Industries() {
               key={i.titleEn}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15, margin: "0px 0px -100px 0px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: index * 0.08, 
@@ -404,8 +400,8 @@ function WhyUs() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
           >
             <div className="max-w-2xl">
@@ -446,7 +442,7 @@ function WhyUs() {
               key={w.titleEn}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15, margin: "0px 0px -100px 0px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: i * 0.06, 
@@ -500,7 +496,7 @@ function FeaturedProducts() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
           transition={{ duration: 0.6 }}
           className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
         >
@@ -523,7 +519,7 @@ function FeaturedProducts() {
               key={p.code}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15, margin: "0px 0px -100px 0px" }}
               transition={{ 
                 duration: 0.8, 
                 delay: index * 0.1, 
@@ -735,8 +731,8 @@ function Projects() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
       >
         <SectionHead
@@ -758,7 +754,7 @@ function Projects() {
             key={isAr ? p.clientAr : p.clientEn}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2, margin: "0px 0px -100px 0px" }}
             transition={{ 
               duration: 0.8, 
               delay: i * 0.08, 
@@ -804,8 +800,8 @@ function Numbers() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <SectionHead
             eyebrow={t("By the numbers", "بالأرقام")}
@@ -820,7 +816,7 @@ function Numbers() {
               key={String(s.l)}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.5, margin: "0px 0px -100px 0px" }}
               transition={{ duration: 0.8, delay: idx * 0.08, ease: "easeOut" }}
               className="bg-primary p-6 sm:p-8"
             >
@@ -845,10 +841,11 @@ function ScrollHeadingAnimation({ children, delay = 0 }: { children: React.React
     <motion.div
       initial={{ opacity: 0, x: 100 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: false, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.3, margin: "0px 0px -100px 0px" }}
       transition={{ duration: 0.9, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   );
 }
+

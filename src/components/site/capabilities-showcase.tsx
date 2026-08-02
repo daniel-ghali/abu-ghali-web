@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ClipboardCheck, Cog, Factory, Package, ScanLine, Truck } from "lucide-react";
 import { useT } from "@/i18n/i18n";
 import { Reveal } from "./reveal";
@@ -257,56 +256,32 @@ function CapabilityCard({ cap }: { cap: Cap }) {
   );
 }
 
-// Reusable heading animation component - repeats every scroll with buttery smooth motion
+// Reusable heading animation component - plays once on first view
 function HeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.2 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
-
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: 100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
-      transition={{ duration: 0.9, delay, ease: "easeOut" }}
+      initial={{ opacity: 0, x: 60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px -100px 0px" }}
+      transition={{ duration: 0.7, delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   );
 }
 
-// Card fade-up animation component - repeats every scroll with smooth buttery effect
+// Card fade-up animation component - plays once on first view
 function CardAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ amount: 0.15, once: false }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ amount: 0.1, once: true, margin: "0px 0px -50px 0px" }}
       transition={{ 
-        duration: 0.8, 
+        duration: 0.6, 
         delay, 
-        ease: "easeOut",
-        scale: { duration: 0.8, ease: "easeOut" }
+        ease: "easeOut"
       }}
-      whileHover={{ y: -2, transition: { duration: 0.3, ease: "easeOut" } }}
     >
       {children}
     </motion.div>
