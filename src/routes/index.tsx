@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRight, CheckCircle2, Cog, Factory, Gauge, Globe, Layers, ShieldCheck, Wrench, Boxes } from "lucide-react";
-import { useT } from "@/i18n/i18n";
+import { useT, useLocale } from "@/i18n/i18n";
 import { CapabilitiesShowcase } from "@/components/site/capabilities-showcase";
 import { Section, SectionHead, useDesktopReveal } from "@/components/site/section";
 import { routeSeo } from "@/lib/seo";
@@ -81,7 +81,7 @@ function Hero() {
   }, [HERO_SLIDES.length]);
 
   return (
-    <section className="relative overflow-hidden bg-primary text-primary-foreground min-h-[520px] sm:min-h-[580px] md:min-h-[700px] flex flex-col justify-between">
+    <section className="relative overflow-hidden bg-primary text-primary-foreground min-h-[560px] sm:min-h-[620px] md:min-h-[730px] flex flex-col justify-between">
       {/* Background Image Slider with Crisp Visibility */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -97,8 +97,14 @@ function Hero() {
           />
         </AnimatePresence>
 
-        {/* Lighter, clear gradient scrim for optimal background photo visibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/75 to-primary/25 rtl:bg-gradient-to-l" />
+        {/* Animated gradient overlay */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/75 to-primary/25 rtl:bg-gradient-to-l"
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"],
+          }}
+          transition={{ duration: 8, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-transparent to-primary/30" />
       </div>
 
@@ -110,46 +116,107 @@ function Hero() {
           className="relative flex max-w-3xl flex-col justify-center space-y-6 gap-9"
         >
          
-          {/* Heading */}
-          <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px]">
-            {t(
-              <>
-                Engineered in Egypt.
-                <br />
-                Trusted <span className="text-accent">worldwide.</span>
-              </>,
-              <>
-                هندسة مصرية
-                <br />
-                بجودة <span className="text-accent">عالمية.</span>
-              </>,
-            )}
-          </h1>
+          {/* Heading with staggered animation */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-3xl font-bold leading-[1.06] tracking-tight sm:text-4xl md:text-6xl lg:text-[62px] overflow-hidden">
+              {t(
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0, ease: [0.34, 1.56, 0.64, 1] }}
+                    className="inline-block"
+                  >
+                    Engineered in Egypt.
+                  </motion.div>
+                  <br />
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                    className="inline-block"
+                  >
+                    Trusted <span className="text-accent">worldwide.</span>
+                  </motion.div>
+                </>,
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0, ease: [0.34, 1.56, 0.64, 1] }}
+                    className="inline-block"
+                  >
+                    هندسة مصرية
+                  </motion.div>
+                  <br />
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
+                    className="inline-block"
+                  >
+                    بجودة <span className="text-accent">عالمية.</span>
+                  </motion.div>
+                </>,
+              )}
+            </h1>
+          </motion.div>
 
-          {/* Description */}
-          <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-xl font-normal">
-            {t(
-              "A fully-integrated precision manufacturer: CNC machining, water flanges, castings, hydraulic assemblies and OEM parts for infrastructure, energy and industrial programmes worldwide.",
-              "شريك صناعي متكامل في التصنيع الدقيق: تشغيل CNC، فلانشات شبكات المياه، المصبوبات، الأنظمة الهيدروليكية وقطع OEM لمشروعات البنية التحتية والطاقة والصناعة حول العالم.",
-            )}
-          </p>
+          {/* Description with fade and slide animation */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <p className="max-w-2xl text-base leading-relaxed text-white/90 md:text-xl font-normal">
+              {t(
+                "A fully-integrated precision manufacturer: CNC machining, water flanges, castings, hydraulic assemblies and OEM parts for infrastructure, energy and industrial programmes worldwide.",
+                "شريك صناعي متكامل في التصنيع الدقيق: تشغيل CNC، فلانشات شبكات المياه، المصبوبات، الأنظمة الهيدروليكية وقطع OEM لمشروعات البنية التحتية والطاقة والصناعة حول العالم.",
+              )}
+            </p>
+          </motion.div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-            <Link
-              to="/quote"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-[0_18px_40px_-22px_rgba(0,0,0,0.65)] transition duration-200 hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          {/* Action CTAs with staggered appearance */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {t("Request a quotation", "اطلب عرض سعر")}
-              <ArrowUpRight className="h-5 w-5" />
-            </Link>
-            <Link
-              to="/capabilities"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-base font-medium text-white backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              <Link
+                to="/quote"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-accent-foreground shadow-[0_18px_40px_-22px_rgba(0,0,0,0.65)] transition duration-200 hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                {t("Request a quotation", "اطلب عرض سعر")}
+                <ArrowUpRight className="h-5 w-5" />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {t("Explore capabilities", "استكشف قدراتنا")} <ArrowRight className="h-5 w-5" />
-            </Link>
-          </div>
+              <Link
+                to="/capabilities"
+                className="inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-xl border border-white/30 bg-white/10 px-6 py-3.5 text-base font-medium text-white backdrop-blur-md transition duration-200 hover:border-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                {t("Explore capabilities", "استكشف قدراتنا")} <ArrowRight className="h-5 w-5" />
+              </Link>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Slide Indicator & Active Tag */}
@@ -161,18 +228,25 @@ function Hero() {
         >
           <div className="flex items-center gap-2">
             {HERO_SLIDES.map((slide, idx) => (
-              <button
+              <motion.button
                 key={idx}
                 onClick={() => setCurrentSlide(idx)}
                 className={`h-3 rounded-full transition-all duration-300 ${currentSlide === idx ? "w-8 bg-accent" : "w-3 bg-white/40 hover:bg-white/70"}`}
                 aria-label={`Go to slide ${idx + 1}`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
               />
             ))}
           </div>
 
-          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80 bg-white/10 px-3 py-1 rounded-md backdrop-blur-sm border border-white/10">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80 bg-white/10 px-3 py-1 rounded-md backdrop-blur-sm border border-white/10"
+          >
             {t(HERO_SLIDES[currentSlide].tagEn, HERO_SLIDES[currentSlide].tagAr)}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -189,23 +263,36 @@ function TrustBar() {
     t("Custom engineering", "هندسة مخصصة"),
     t("Global export capability", "قدرة تصدير عالمية"),
   ];
+  
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  
   return (
-    <div className="border-y border-hairline bg-surface">
+    <motion.div ref={ref} style={{ opacity }} className="border-y border-hairline bg-surface">
       <div className="container-x flex flex-wrap items-center justify-between gap-x-10 gap-y-4 py-6">
-        {items.map((i) => (
-          <div key={String(i)} className="flex items-center gap-2 text-sm font-medium text-primary/80">
+        {items.map((i, idx) => (
+          <motion.div 
+            key={String(i)} 
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.4, delay: idx * 0.05 }}
+            className="flex items-center gap-2 text-sm font-medium text-primary/80"
+          >
             <CheckCircle2 className="h-4 w-4 text-accent" />
             {i}
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function Industries() {
   const t = useT();
   const isDesktop = useDesktopReveal();
+  
   const items = [
     { titleEn: "Water Infrastructure", titleAr: "شبكات المياه", image: industryWater, descEn: "Flanges, valve bodies and fittings for municipal and industrial water networks.", descAr: "فلانشات وأجسام محابس ووصلات لشبكات المياه البلدية والصناعية." },
     { titleEn: "Oil & Gas", titleAr: "النفط والغاز", image: industryOilgas, descEn: "Machined pressure components and spare parts for upstream and downstream operations.", descAr: "قطع ضغط دقيقة وقطع غيار لعمليات الاستخراج والتكرير." },
@@ -214,18 +301,26 @@ function Industries() {
     { titleEn: "Construction", titleAr: "المقاولات", image: factoryFloor, descEn: "Heavy-duty components for infrastructure, cranes, formwork and construction equipment.", descAr: "قطع تحمّل عالي للبنية التحتية والأوناش ومعدات المقاولات." },
     { titleEn: "OEM Manufacturing", titleAr: "تصنيع OEM", image: capHydraulics, descEn: "Contract manufacturing for global OEMs — from serial parts to complete sub-assemblies.", descAr: "تصنيع تعاقدي للشركات العالمية — من القطع الكمية حتى التجميعات الكاملة." },
   ];
+  
   return (
     <section className="bg-surface py-24 md:py-32">
       <div className="container-x">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <SectionHead
-            eyebrow={t("Industries served", "القطاعات التي نخدمها")}
-            title={t(<>Where our parts<br />end up working.</>, <>أين تعمل<br />قطعنا يوميًا.</>)}
-            intro={t(
-              "Abu Ghali components run in water networks across Egypt, hydraulic systems abroad, and OEM production lines from Cairo to Central Europe.",
-              "تعمل قطع أبو غالي في شبكات المياه بمصر، والأنظمة الهيدروليكية بالخارج، وخطوط إنتاج شركات عالمية من القاهرة إلى وسط أوروبا.",
-            )}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <SectionHead
+              eyebrow={t("Industries served", "القطاعات التي نخدمها")}
+              title={t(<>Where our parts<br />end up working.</>, <>أين تعمل<br />قطعنا يوميًا.</>)}
+              intro={t(
+                "Abu Ghali components run in water networks across Egypt, hydraulic systems abroad, and OEM production lines from Cairo to Central Europe.",
+                "تعمل قطع أبو غالي في شبكات المياه بمصر، والأنظمة الهيدروليكية بالخارج، وخطوط إنتاج شركات عالمية من القاهرة إلى وسط أوروبا.",
+              )}
+            />
+          </motion.div>
           <Link to="/industries" className="ag-link text-sm">
             {t("All industries", "كل القطاعات")} <ArrowRight className="h-4 w-4" />
           </Link>
@@ -235,12 +330,16 @@ function Industries() {
           {items.map((i, index) => (
             <motion.div
               key={i.titleEn}
-              initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
-              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-              viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
-              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: index * 0.08, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
               whileHover={{ y: -4, scale: 1.01 }}
-              className="group relative overflow-hidden bg-background"
+              className="group relative overflow-hidden bg-background cursor-pointer"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -253,7 +352,11 @@ function Industries() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent" />
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                  <h3 className="text-2xl font-semibold">{t(i.titleEn, i.titleAr)}</h3>
+                  <ScrollHeadingAnimation>
+                    <h3 className="text-2xl font-semibold">
+                      {t(i.titleEn, i.titleAr)}
+                    </h3>
+                  </ScrollHeadingAnimation>
                   <p className="mt-2 max-w-sm text-sm text-white/80">{t(i.descEn, i.descAr)}</p>
                 </div>
               </div>
@@ -268,6 +371,7 @@ function Industries() {
 function WhyUs() {
   const t = useT();
   const isDesktop = useDesktopReveal();
+  
   const WHY = [
     {
       icon: Cog,
@@ -318,18 +422,26 @@ function WhyUs() {
       {/* Header Strip */}
       <div className="bg-primary text-primary-foreground">
         <div className="container-x py-16 md:py-20">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
+          >
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent backdrop-blur-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 {t("Why Abu Ghali", "لماذا أبو غالي")}
               </div>
-              <h2 className="mt-5 text-4xl font-bold leading-[1.06] tracking-tight md:text-5xl">
-                {t(
-                  <>Engineering discipline,<br />industrial capacity.</>,
-                  <>انضباط هندسي<br />وطاقة صناعية.</>,
-                )}
-              </h2>
+              <ScrollHeadingAnimation>
+                <h2 className="mt-5 text-4xl font-bold leading-[1.06] tracking-tight md:text-5xl">
+                  {t(
+                    <>Engineering discipline,<br />industrial capacity.</>,
+                    <>انضباط هندسي<br />وطاقة صناعية.</>,
+                  )}
+                </h2>
+              </ScrollHeadingAnimation>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">
                 {t(
                   "We compete on the things that actually matter to procurement and engineering teams: predictability, tolerance, documentation and delivery.",
@@ -343,7 +455,7 @@ function WhyUs() {
             >
               {t("About us", "من نحن")} <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -353,27 +465,36 @@ function WhyUs() {
           {WHY.map((w, i) => (
             <motion.div
               key={w.titleEn}
-              initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
-              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-              viewport={isDesktop ? { once: true, amount: 0.15 } : undefined}
-              transition={{ duration: 0.45, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: i * 0.06, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
               whileHover={{ y: -4, scale: 1.01 }}
-              className="group relative flex flex-col bg-background p-6 transition duration-200 hover:bg-surface/60 sm:p-8"
+              className="group relative flex flex-col bg-background p-6 transition duration-200 hover:bg-surface/60 sm:p-8 cursor-pointer"
             >
               {/* Step number */}
-              <span className="num-display absolute top-6 end-7 text-[42px] font-black text-primary/[0.06] select-none">
+              <span className="num-display absolute top-6 inset-e-7 text-[42px] font-black text-primary/6 select-none">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
               {/* Icon */}
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface text-accent transition duration-200 group-hover:border-accent/40 group-hover:bg-accent/5">
+              <motion.div 
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface text-accent transition duration-200 group-hover:border-accent/40 group-hover:bg-accent/5"
+              >
                 <w.icon className="h-6 w-6" />
-              </div>
+              </motion.div>
 
               {/* Content */}
-              <h3 className="mt-6 text-lg font-bold text-primary">
-                {t(w.titleEn, w.titleAr)}
-              </h3>
+              <ScrollHeadingAnimation>
+                <h3 className="mt-6 text-lg font-bold text-primary">
+                  {t(w.titleEn, w.titleAr)}
+                </h3>
+              </ScrollHeadingAnimation>
               <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground flex-1">
                 {t(w.descEn, w.descAr)}
               </p>
@@ -397,11 +518,17 @@ const PRODUCTS = [
 
 function FeaturedProducts() {
   const t = useT();
-  const isDesktop = useDesktopReveal();
+  
   return (
     <section className="bg-surface py-16 sm:py-20 md:py-28">
       <div className="container-x">
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
+        >
           <SectionHead
             eyebrow={t("Featured products", "منتجات مختارة")}
             title={t(<>Standard parts.<br />Engineered exactly.</>, <>قطع قياسية.<br />مصنوعة بدقة.</>)}
@@ -413,35 +540,45 @@ function FeaturedProducts() {
           <Link to="/products" className="ag-link text-sm">
             {t("Browse products", "كل المنتجات")} <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+        </motion.div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {PRODUCTS.map((p, index) => (
             <motion.div
               key={p.code}
-              initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
-              whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-              viewport={isDesktop ? { once: true, amount: 0.15 } : undefined}
-              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.15 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: index * 0.1, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
               whileHover={{ y: -4, scale: 1.01 }}
-              className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30"
+              className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30 cursor-pointer"
             >
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr]">
                 <div className="relative aspect-video sm:aspect-square overflow-hidden bg-surface">
-                  <img
+                  <motion.img
                     src={p.title.includes("Flange") ? capFlanges : p.title.includes("Cylinder") ? capHydraulics : p.title.includes("Cast") ? capCasting : capRubber}
                     alt={p.title}
                     loading="lazy"
                     width={800}
                     height={800}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className="h-full w-full object-cover"
                   />
                 </div>
                 <div className="flex flex-col p-6">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                     {p.code}
                   </div>
-                  <h3 className="mt-3 text-xl font-semibold leading-snug text-primary">{p.title}</h3>
+                  <ScrollHeadingAnimation>
+                    <h3 className="mt-3 text-xl font-semibold leading-snug text-primary">
+                      {p.title}
+                    </h3>
+                  </ScrollHeadingAnimation>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                   <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-hairline pt-4 text-xs">
                     <div>
@@ -471,7 +608,7 @@ function FeaturedProducts() {
 
 function FactoryStrip() {
   const t = useT();
-  const isDesktop = useDesktopReveal();
+  
   const stats = [
     { value: "18,000", unit: "m²", labelEn: "Facility area", labelAr: "مساحة المصنع" },
     { value: "2", unit: "", labelEn: "Shifts / day", labelAr: "ورديتان / يوم" },
@@ -484,13 +621,7 @@ function FactoryStrip() {
         <div className="grid items-stretch gap-6 lg:grid-cols-[1fr_1fr] xl:grid-cols-[1.1fr_1fr]">
 
           {/* Left — Photo */}
-          <motion.div
-            initial={isDesktop ? { opacity: 0.96, x: -14 } : { opacity: 1, x: 0 }}
-            whileInView={isDesktop ? { opacity: 1, x: 0 } : undefined}
-            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px]"
-          >
+          <div className="relative overflow-hidden rounded-2xl border border-hairline min-h-[300px] sm:min-h-[420px] lg:min-h-[600px] group hover:scale-[1.02] transition duration-700">
             <img
               src={factoryFloor}
               alt={t(
@@ -500,7 +631,7 @@ function FactoryStrip() {
               loading="lazy"
               width={1920}
               height={1088}
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-700 hover:scale-[1.02]"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
             {/* Bottom caption strip */}
             <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 border-t border-white/10 bg-primary/80 px-5 py-3 backdrop-blur-md">
@@ -512,16 +643,10 @@ function FactoryStrip() {
                 ISO 9001
               </span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — Content panel */}
-          <motion.div
-            initial={isDesktop ? { opacity: 0.96, x: 14 } : { opacity: 1, x: 0 }}
-            whileInView={isDesktop ? { opacity: 1, x: 0 } : undefined}
-            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col overflow-hidden rounded-2xl border border-hairline bg-primary text-primary-foreground"
-          >
+          <div className="flex flex-col overflow-hidden rounded-2xl border border-hairline bg-primary text-primary-foreground">
             <div className="flex flex-1 flex-col justify-between p-6 sm:p-8 md:p-10">
               {/* Eyebrow */}
               <div>
@@ -531,12 +656,14 @@ function FactoryStrip() {
                 </div>
 
                 {/* Heading */}
-                <h2 className="mt-6 text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
-                  {t(
-                    <>One facility.<br />Every process.<br /><span className="text-accent">Total accountability.</span></>,
-                    <>منشأة واحدة.<br />كل العمليات.<br /><span className="text-accent">مسؤولية كاملة.</span></>,
-                  )}
-                </h2>
+                <ScrollHeadingAnimation>
+                  <h2 className="mt-6 text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl">
+                    {t(
+                      <>One facility.<br />Every process.<br /><span className="text-accent">Total accountability.</span></>,
+                      <>منشأة واحدة.<br />كل العمليات.<br /><span className="text-accent">مسؤولية كاملة.</span></>,
+                    )}
+                  </h2>
+                </ScrollHeadingAnimation>
 
                 {/* Body */}
                 <p className="mt-5 text-sm leading-relaxed text-white/70 md:text-base">
@@ -576,7 +703,7 @@ function FactoryStrip() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>
@@ -585,18 +712,61 @@ function FactoryStrip() {
 }
 
 const PROJECTS_DATA = [
-  { client: "Holding Company for Water & Wastewater", industry: "Water Infrastructure", scope: "12,400 DN80–DN600 flanged assemblies for a nationwide potable-water rehabilitation programme.", year: "2023" },
-  { client: "Suez Oil Processing Company", industry: "Oil & Gas", scope: "Serial production of machined pressure fittings and spare parts for downstream refining operations.", year: "2022" },
-  { client: "European hydraulics OEM", industry: "OEM Manufacturing", scope: "Contract manufacturing of cylinder bodies and manifolds shipped weekly to Central European assembly lines.", year: "Ongoing" },
-  { client: "Nasr Automotive Manufacturing", industry: "Automotive", scope: "Cast and machined chassis components for light-commercial vehicle assembly in 6th of October City.", year: "2024" },
+  {
+    clientEn: "Holding Company for Water & Wastewater",
+    clientAr: "الشركة القابضة لمياه الشرب والصرف الصحي",
+    industryEn: "Water Infrastructure",
+    industryAr: "شبكات المياه",
+    scopeEn: "12,400 DN80–DN600 flanged assemblies for a nationwide potable-water rehabilitation programme.",
+    scopeAr: "12,400 قطعة فلانشية من DN80 إلى DN600 ضمن برنامج قومي لإعادة تأهيل شبكات مياه الشرب على مستوى البلاد.",
+    yearEn: "2023",
+    yearAr: "2023",
+  },
+  {
+    clientEn: "Suez Oil Processing Company",
+    clientAr: "شركة السويس لتكرير البترول",
+    industryEn: "Oil & Gas",
+    industryAr: "النفط والغاز",
+    scopeEn: "Serial production of machined pressure fittings and spare parts for downstream refining operations.",
+    scopeAr: "تصنيع متواصل لوصلات الضغط والقطع الغيار المشغّلة لعمليات التكرير النهائية.",
+    yearEn: "2022",
+    yearAr: "2022",
+  },
+  {
+    clientEn: "European hydraulics OEM",
+    clientAr: "شركة أوروبية للأنظمة الهيدروليكية",
+    industryEn: "OEM Manufacturing",
+    industryAr: "التصنيع للغير (OEM)",
+    scopeEn: "Contract manufacturing of cylinder bodies and manifolds shipped weekly to Central European assembly lines.",
+    scopeAr: "تصنيع تعاقدي لأجسام الأسطوانات والمشعبات يتم شحنه أسبوعيًا إلى خطوط التجميع في أوروبا الوسطى.",
+    yearEn: "Ongoing",
+    yearAr: "مستمر",
+  },
+  {
+    clientEn: "Nasr Automotive Manufacturing",
+    clientAr: "النصر لصناعة السيارات",
+    industryEn: "Automotive",
+    industryAr: "السيارات",
+    scopeEn: "Cast and machined chassis components for light-commercial vehicle assembly in 6th of October City.",
+    scopeAr: "مكونات شاسيه مصبوبة ومشغّلة لتجميع المركبات التجارية الخفيفة في مدينة السادس من أكتوبر.",
+    yearEn: "2024",
+    yearAr: "2024",
+  },
 ];
 
 function Projects() {
   const t = useT();
-  const isDesktop = useDesktopReveal();
+  const { isAr } = useLocale();
+  
   return (
     <Section>
-      <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end"
+      >
         <SectionHead
           eyebrow={t("Selected projects", "مشاريع مختارة")}
           title={t(<>Manufacturing that ships.</>, <>تصنيع يصل إلى الميدان.</>)}
@@ -608,26 +778,35 @@ function Projects() {
         <Link to="/projects" className="ag-link text-sm">
           {t("All projects", "كل المشاريع")} <ArrowRight className="h-4 w-4" />
         </Link>
-      </div>
+      </motion.div>
 
       <div className="mt-12 overflow-hidden rounded-xl border border-hairline sm:mt-16">
         {PROJECTS_DATA.map((p, i) => (
           <motion.div
-            key={p.client}
-            initial={isDesktop ? { opacity: 0.96, y: 14 } : { opacity: 1, y: 0 }}
-            whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-            viewport={isDesktop ? { once: true, amount: 0.2 } : undefined}
-            transition={{ duration: 0.45, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className={`grid gap-4 p-6 sm:gap-6 sm:p-8 md:grid-cols-[1fr_1.4fr_auto] md:items-center md:gap-10 ${i > 0 ? "border-t border-hairline" : ""}`}
+            key={isAr ? p.clientAr : p.clientEn}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ 
+              duration: 0.45, 
+              delay: i * 0.08, 
+              ease: [0.16, 1, 0.3, 1] 
+            }}
+            whileHover={{ x: 4 }}
+            className={`grid gap-4 p-6 sm:gap-6 sm:p-8 md:grid-cols-[1fr_1.4fr_auto] md:items-center md:gap-10 transition duration-200 hover:bg-surface/40 cursor-pointer ${i > 0 ? "border-t border-hairline" : ""}`}
           >
             <div>
-              <div className="eyebrow text-accent">{p.industry}</div>
-              <h3 className="mt-2 text-lg font-semibold text-primary sm:mt-3 sm:text-xl">{p.client}</h3>
+              <div className="eyebrow text-accent">{isAr ? p.industryAr : p.industryEn}</div>
+              <ScrollHeadingAnimation>
+                <h3 className="mt-2 text-lg font-semibold text-primary sm:mt-3 sm:text-xl">
+                  {isAr ? p.clientAr : p.clientEn}
+                </h3>
+              </ScrollHeadingAnimation>
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">{p.scope}</p>
+            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">{isAr ? p.scopeAr : p.scopeEn}</p>
             <div className="flex items-center justify-between gap-6 md:justify-end">
-              <span className="num-display text-lg font-semibold text-primary">{p.year}</span>
-              <ArrowUpRight className="h-5 w-5 text-muted-foreground" />
+              <span className="num-display text-lg font-semibold text-primary">{isAr ? p.yearAr : p.yearEn}</span>
+              <ArrowUpRight className="h-5 w-5 text-muted-foreground transition group-hover:text-accent" />
             </div>
           </motion.div>
         ))}
@@ -638,6 +817,7 @@ function Projects() {
 
 function Numbers() {
   const t = useT();
+  
   const stats = [
     { k: "25+", l: t("Years in operation", "سنة من العمل") },
     { k: "58", l: t("CNC & production machines", "ماكينة CNC وإنتاج") },
@@ -646,20 +826,38 @@ function Numbers() {
     { k: "18,000", l: t("m² manufacturing facility", "م² مساحة المصنع") },
     { k: "±0.005", l: t("mm achievable tolerance", "مم أدنى دقة") },
   ];
+  
   return (
     <section className="bg-primary py-16 text-primary-foreground sm:py-20 md:py-28">
       <div className="container-x">
-        <SectionHead
-          eyebrow={t("By the numbers", "بالأرقام")}
-          title={<span className="text-white">{t("Twenty-five years of measurable output.", "خمسة وعشرون عامًا من الأرقام القابلة للقياس.")}</span>}
-          intro={<span className="text-white/70">{t("Industrial manufacturing is a numbers game — capacity, tolerance, delivery. Ours are on the table.", "التصنيع الصناعي لغة أرقام — طاقة ودقة وتسليم. أرقامنا واضحة أمامك.")}</span>}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <SectionHead
+            eyebrow={t("By the numbers", "بالأرقام")}
+            title={<span className="text-white">{t("Twenty-five years of measurable output.", "خمسة وعشرون عامًا من الأرقام القابلة للقياس.")}</span>}
+            intro={<span className="text-white/70">{t("Industrial manufacturing is a numbers game — capacity, tolerance, delivery. Ours are on the table.", "التصنيع الصناعي لغة أرقام — طاقة ودقة وتسليم. أرقامنا واضحة أمامك.")}</span>}
+          />
+        </motion.div>
+        
         <dl className="mt-12 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3 sm:mt-16">
-          {stats.map((s) => (
-            <div key={String(s.l)} className="bg-primary p-6 sm:p-8">
-              <dt className="num-display text-4xl font-bold text-white sm:text-5xl md:text-6xl">{s.k}</dt>
+          {stats.map((s, idx) => (
+            <motion.div 
+              key={String(s.l)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              className="bg-primary p-6 sm:p-8"
+            >
+              <dt className="num-display text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+                {s.k}
+              </dt>
               <dd className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/60 sm:mt-3 sm:text-sm">{s.l}</dd>
-            </div>
+            </motion.div>
           ))}
         </dl>
       </div>
@@ -669,3 +867,39 @@ function Numbers() {
 
 // keep unused import trimmed
 void Boxes;
+
+// Reusable heading animation component - repeats every scroll
+function ScrollHeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: 100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}

@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, ClipboardCheck, Cog, Factory, Package, ScanLine, Truck } from "lucide-react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ClipboardCheck, Cog, Factory, Package, ScanLine, Truck } from "lucide-react";
 import { useT } from "@/i18n/i18n";
+import { Reveal } from "./reveal";
 import heroCnc from "@/assets/hero-cnc.jpg";
 import capFlanges from "@/assets/capability-flanges.jpg";
 import capCasting from "@/assets/capability-casting.jpg";
@@ -131,7 +134,7 @@ export function CapabilitiesShowcase() {
   return (
     <section className="relative bg-background">
       <div className="container-x py-16 sm:py-20 md:py-24">
-        <div className="max-w-2xl">
+        <HeadingAnimation>
           <div className="eyebrow-accent">
             <span className="inline-block h-px w-6 bg-accent" />
             {t("Manufacturing capabilities", "قدراتنا التصنيعية")}
@@ -148,85 +151,59 @@ export function CapabilitiesShowcase() {
               "من المراجعة الهندسية وتصميم الإسطمبات إلى التشغيل والصب والتجميع والفحص النهائي — شريك واحد لكل مرحلة.",
             )}
           </p>
-        </div>
+        </HeadingAnimation>
 
-        <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline lg:grid-cols-4">
-          {trust.map((s) => (
-            <div
-              key={s.en}
-              className="bg-card p-5 text-left rtl:text-right transition hover:bg-surface/60 md:p-6"
-            >
-              <dt className="num-display text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
-                {s.k}
-              </dt>
-              <dd className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                {t(s.en, s.ar)}
-              </dd>
-            </div>
-          ))}
-        </dl>
-
-        {/* Workflow Pipeline Section */}
-        <div className="mt-16 rounded-xl border border-hairline bg-surface/40 p-6 md:p-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-hairline">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                {t("Engineering workflow", "سير العمل الهندسي")}
+        <Reveal amount={0.1}>
+          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline lg:grid-cols-4">
+            {trust.map((s) => (
+              <div
+                key={s.en}
+                className="bg-card p-5 text-left rtl:text-right transition hover:bg-surface/60 md:p-6"
+              >
+                <dt className="num-display text-2xl font-bold tracking-tight text-primary sm:text-3xl md:text-4xl">
+                  {s.k}
+                </dt>
+                <dd className="mt-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  {t(s.en, s.ar)}
+                </dd>
               </div>
-              <h3 className="text-lg font-semibold text-primary mt-1">
-                {t("Structured 6-stage manufacturing process", "مراحل تصنيع منظمّة في 6 خطوات")}
+            ))}
+          </dl>
+        </Reveal>
+        {/* Workflow Pipeline Section */}
+        <Reveal amount={0.1}>
+          <div className="mt-16 border-y border-hairline py-14">
+            <HeadingAnimation delay={0.1}>
+              <h3 className="text-2xl font-semibold text-primary sm:text-3xl">
+                {t("A structured, six-stage process", "مراحل تصنيع منظمّة في 6 خطوات")}
               </h3>
-            </div>
-            <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground bg-background px-3 py-1.5 rounded-md border border-hairline self-start sm:self-auto">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              {t("ISO 9001 Audited Standard", "معيار معتمد ISO 9001")}
-            </span>
-          </div>
+            </HeadingAnimation>
 
-          <ol className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {flow.map((step, i) => {
-              const StepIcon = step.icon;
-              return (
-                <li
-                  key={step.en}
-                  className="flex flex-col justify-between rounded-lg border border-hairline bg-background p-4 transition hover:border-accent/60 hover:shadow-sm"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="num-display text-xs font-bold text-accent">
-                      {String(i + 1).padStart(2, "00")}
-                    </span>
-                    <StepIcon className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-primary">
-                    {t(step.en, step.ar)}
-                  </h4>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+            <ol className="mt-12 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-6">
+              {flow.map((step, i) => {
+                const StepIcon = step.icon;
+                return (
+                  <li key={step.en} className="border-t-2 border-hairline pt-6">
+                    <div className="flex items-center gap-2.5 text-accent">
+                      <StepIcon className="h-6 w-6" strokeWidth={1.5} aria-hidden="true" />
+                      <span className="font-mono text-sm font-semibold">{String(i + 1).padStart(2, "0")}</span>
+                    </div>
+                    <h4 className="mt-4 text-base font-medium leading-snug text-primary sm:text-lg">
+                      {t(step.en, step.ar)}
+                    </h4>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </Reveal>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {CAPS.map((c) => (
-            <CapabilityCard key={c.n} cap={c} />
+          {CAPS.map((c, index) => (
+            <Reveal key={c.n} delay={index * 0.05} amount={0.1}>
+              <CapabilityCard cap={c} />
+            </Reveal>
           ))}
-        </div>
-
-        <div className="mt-14 flex flex-col justify-between gap-6 rounded-2xl bg-primary p-6 text-primary-foreground sm:flex-row sm:items-center md:p-10">
-          <div className="max-w-lg">
-            <h3 className="text-xl font-semibold sm:text-2xl md:text-3xl">
-              {t("Have engineering drawings ready?", "هل لديك رسومات هندسية؟")}
-            </h3>
-            <p className="mt-2 text-sm text-white/75 md:text-base">
-              {t("Send your CAD files and receive a quotation within 48 hours.", "أرسل ملفات الرسومات واحصل على عرض سعر خلال 48 ساعة.")}
-            </p>
-          </div>
-          <Link
-            to="/quote"
-            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-semibold text-accent-foreground transition hover:bg-accent/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
-          >
-            {t("Send drawings", "أرسل الرسومات")} <ArrowUpRight className="h-5 w-5" />
-          </Link>
         </div>
       </div>
     </section>
@@ -236,43 +213,95 @@ export function CapabilitiesShowcase() {
 function CapabilityCard({ cap }: { cap: Cap }) {
   const t = useT();
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg">
-      <div className="relative aspect-[16/10] overflow-hidden bg-surface">
-        <img
-          src={cap.image}
-          alt={t(cap.titleEn, cap.titleAr)}
-          loading="lazy"
-          width={1600}
-          height={1000}
-          className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-        />
-        <span className="num-display absolute start-4 top-4 rounded-md bg-primary/85 px-2 py-1 text-[11px] font-semibold text-primary-foreground backdrop-blur">
-          {cap.n}
-        </span>
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-semibold text-primary">{t(cap.titleEn, cap.titleAr)}</h3>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-          {t(cap.descEn, cap.descAr)}
-        </p>
-        <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-hairline pt-4">
-          {cap.specs.map((s) => (
-            <div key={s.kEn}>
-              <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                {t(s.kEn, s.kAr)}
-              </dt>
-              <dd className="mt-0.5 text-sm font-semibold text-primary">{s.v}</dd>
-            </div>
-          ))}
-        </dl>
-        <Link
-          to="/quote"
-          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          {t("Request a quotation", "اطلب عرض سعر")}
-          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-        </Link>
-      </div>
-    </article>
+    <CardAnimation>
+      <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-lg">
+        <div className="relative aspect-16/10 overflow-hidden bg-surface">
+          <img
+            src={cap.image}
+            alt={t(cap.titleEn, cap.titleAr)}
+            loading="lazy"
+            width={1600}
+            height={1000}
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+          />
+          <span className="num-display absolute inset-s-4 top-4 rounded-md bg-primary/85 px-2 py-1 text-[11px] font-semibold text-primary-foreground backdrop-blur">
+            {cap.n}
+          </span>
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-lg font-semibold text-primary">{t(cap.titleEn, cap.titleAr)}</h3>
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+            {t(cap.descEn, cap.descAr)}
+          </p>
+          <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-hairline pt-4">
+            {cap.specs.map((s) => (
+              <div key={s.kEn}>
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  {t(s.kEn, s.kAr)}
+                </dt>
+                <dd className="mt-0.5 text-sm font-semibold text-primary">{s.v}</dd>
+              </div>
+            ))}
+          </dl>
+          <Link
+            to="/quote"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition group-hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            {t("Request a quotation", "اطلب عرض سعر")}
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </Link>
+        </div>
+      </article>
+    </CardAnimation>
+  );
+}
+
+// Reusable heading animation component - repeats every scroll
+function HeadingAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: 100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// Card fade-up animation component - repeats every scroll
+function CardAnimation({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ amount: 0.15, once: false }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }

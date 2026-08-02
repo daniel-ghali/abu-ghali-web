@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Upload, Building2, Clock } from "lucide-react";
 import { PageHero, Section } from "@/components/site/section";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 
@@ -29,7 +30,8 @@ function ContactPage() {
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <aside className="space-y-8">
+          <Reveal direction="right" amount={0.15}>
+            <aside className="space-y-8">
             <div>
               <div className="eyebrow-accent">{t("Head office", "المكتب الرئيسي")}</div>
               <h3 className="mt-3 text-xl font-semibold text-primary">Abu Ghali Modern Industries</h3>
@@ -63,9 +65,11 @@ function ContactPage() {
                 <a href="mailto:info@abughali-eg.net" className="text-primary hover:text-accent">info@abughali-eg.net</a>
               </ContactRow>
             </div>
-          </aside>
+            </aside>
+          </Reveal>
 
-          <form className="rounded-xl border border-hairline bg-background p-8 md:p-10">
+          <Reveal direction="left" delay={0.1} amount={0.15}>
+            <form className="rounded-xl border border-hairline bg-background p-8 md:p-10">
             <div className="grid gap-6 md:grid-cols-2">
               <Field label={t("Full name", "الاسم بالكامل")}><input type="text" className="ag-input" /></Field>
               <Field label={t("Company", "الشركة")}><input type="text" className="ag-input" /></Field>
@@ -103,22 +107,25 @@ function ContactPage() {
                 "نرد على كل استفسار خلال يوم عمل واحد. الرسومات الحساسة تُتعامل معها باتفاقية سرية (NDA) عند الطلب.",
               )}
             </p>
-          </form>
+            </form>
+          </Reveal>
         </div>
       </Section>
 
-      <section className="bg-surface pb-24">
-        <div className="container-x">
-          <div className="overflow-hidden rounded-xl border border-hairline">
-            <iframe
-              title={t("Abu Ghali Modern Industries — Cairo", "أبو غالي للصناعات الحديثة — القاهرة")}
-              src="https://www.google.com/maps?q=6th+of+October+City,+Giza,+Egypt&output=embed"
-              loading="lazy"
-              className="h-[420px] w-full border-0 grayscale"
-            />
+      <Reveal direction="up" amount={0.15}>
+        <section className="bg-surface pb-24">
+          <div className="container-x">
+            <div className="overflow-hidden rounded-xl border border-hairline">
+              <iframe
+                title={t("Abu Ghali Modern Industries — Cairo", "أبو غالي للصناعات الحديثة — القاهرة")}
+                src="https://www.google.com/maps?q=6th+of+October+City,+Giza,+Egypt&output=embed"
+                loading="lazy"
+                className="h-[420px] w-full border-0 grayscale"
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, FileText } from "lucide-react";
 import { PageHero, Section } from "@/components/site/section";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 
@@ -39,24 +40,25 @@ function DownloadsPage() {
       />
       <Section>
         <div className="grid gap-4">
-          {DOCS.map((d) => (
-            <a
-              key={d.title}
-              href="/contact"
-              className="group flex items-center gap-6 rounded-xl border border-hairline bg-background p-6 transition hover:border-primary/40"
-            >
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-accent/10 text-accent">
-                <FileText className="h-6 w-6" />
-              </div>
-              <div className="flex-1">
-                <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{d.cat}</div>
-                <div className="mt-1 text-lg font-semibold text-primary">{d.title}</div>
-              </div>
-              <div className="hidden text-sm text-muted-foreground md:block">{d.size}</div>
-              <div className="inline-flex items-center gap-2 rounded-md border border-hairline px-4 py-2 text-sm font-semibold text-primary transition group-hover:border-accent group-hover:text-accent">
-                <Download className="h-4 w-4" /> {t("Download", "تحميل")}
-              </div>
-            </a>
+          {DOCS.map((d, index) => (
+            <Reveal key={d.title} delay={index * 0.04} amount={0.1}>
+              <a
+                href="/contact"
+                className="group flex items-center gap-6 rounded-xl border border-hairline bg-background p-6 transition hover:border-primary/40"
+              >
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-accent/10 text-accent">
+                  <FileText className="h-6 w-6" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{d.cat}</div>
+                  <div className="mt-1 text-lg font-semibold text-primary">{d.title}</div>
+                </div>
+                <div className="hidden text-sm text-muted-foreground md:block">{d.size}</div>
+                <div className="inline-flex items-center gap-2 rounded-md border border-hairline px-4 py-2 text-sm font-semibold text-primary transition group-hover:border-accent group-hover:text-accent">
+                  <Download className="h-4 w-4" /> {t("Download", "تحميل")}
+                </div>
+              </a>
+            </Reveal>
           ))}
         </div>
       </Section>

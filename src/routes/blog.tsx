@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/section";
+import { Reveal } from "@/components/site/reveal";
 import { useT } from "@/i18n/i18n";
 import { routeSeo } from "@/lib/seo";
 import heroCnc from "@/assets/hero-cnc.jpg";
@@ -39,20 +40,22 @@ function BlogPage() {
       />
       <Section>
         <div className="grid gap-8 md:grid-cols-2">
-          {POSTS.map((p) => (
-            <article key={p.title} className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img src={p.image} alt={p.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              </div>
-              <div className="flex flex-1 flex-col p-8">
-                <div className="flex items-center gap-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                  <span className="text-accent">{p.cat}</span>
-                  <span>{p.read}</span>
+          {POSTS.map((p, index) => (
+            <Reveal key={p.title} delay={index * 0.08} amount={0.15}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img src={p.image} alt={p.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>
-                <h3 className="mt-4 text-2xl font-semibold leading-snug text-primary">{p.title}</h3>
-                <p className="mt-3 flex-1 text-muted-foreground">{p.excerpt}</p>
-              </div>
-            </article>
+                <div className="flex flex-1 flex-col p-8">
+                  <div className="flex items-center gap-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                    <span className="text-accent">{p.cat}</span>
+                    <span>{p.read}</span>
+                  </div>
+                  <h3 className="mt-4 text-2xl font-semibold leading-snug text-primary">{p.title}</h3>
+                  <p className="mt-3 flex-1 text-muted-foreground">{p.excerpt}</p>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
       </Section>

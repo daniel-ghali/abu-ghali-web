@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download, FileCheck2 } from "lucide-react";
 import { PageHero, Section } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta-band";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 
@@ -38,22 +39,24 @@ function CertificatesPage() {
 
       <Section>
         <div className="grid gap-6 md:grid-cols-2">
-          {CERTS.map((c) => (
-            <div key={c.title} className="flex gap-6 rounded-xl border border-hairline bg-card p-8">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-md bg-accent/10 text-accent">
-                <FileCheck2 className="h-6 w-6" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-primary">{c.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-hairline pt-4 text-xs">
-                  <span className="text-muted-foreground">{c.issuer} · {c.valid}</span>
-                  <a href="/downloads" className="inline-flex items-center gap-2 font-semibold text-primary transition hover:text-accent">
-                    <Download className="h-4 w-4" /> {t("Download PDF", "تحميل PDF")}
-                  </a>
+          {CERTS.map((c, index) => (
+            <Reveal key={c.title} delay={index * 0.06} amount={0.15}>
+              <div className="flex h-full gap-6 rounded-xl border border-hairline bg-card p-8">
+                <div className="grid h-14 w-14 shrink-0 place-items-center rounded-md bg-accent/10 text-accent">
+                  <FileCheck2 className="h-6 w-6" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-primary">{c.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-hairline pt-4 text-xs">
+                    <span className="text-muted-foreground">{c.issuer} · {c.valid}</span>
+                    <a href="/downloads" className="inline-flex items-center gap-2 font-semibold text-primary transition hover:text-accent">
+                      <Download className="h-4 w-4" /> {t("Download PDF", "تحميل PDF")}
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>

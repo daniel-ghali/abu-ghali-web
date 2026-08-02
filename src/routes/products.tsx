@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { PageHero, Section, SectionHead } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta-band";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT, useLocale } from "@/i18n/i18n";
 import { CATEGORIES, CAT_ALL, ITEMS, categoryAr } from "@/data/products";
@@ -52,8 +53,9 @@ function ProductsPage() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <div key={p.code} className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-card transition hover:border-primary/30">
+          {filtered.map((p, index) => (
+            <Reveal key={p.code} delay={index * 0.05} amount={0.1}>
+            <div className="group flex flex-col overflow-hidden rounded-xl border border-hairline bg-card transition hover:border-primary/30">
               <div className="relative aspect-[4/3] overflow-hidden bg-surface">
                 <img src={p.image} alt={isAr ? p.titleAr : p.titleEn} loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
                 <div className="absolute left-4 top-4 rounded-md bg-black/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] text-white backdrop-blur">
@@ -80,6 +82,7 @@ function ProductsPage() {
                 </Link>
               </div>
             </div>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -134,8 +137,9 @@ function CategoryGalleries({ active }: { active: string }) {
                 </span>
               </div>
               <ul className="mt-6 grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((it) => (
-                  <li key={`g-${it.code}`}>
+                {items.map((it, index) => (
+                  <Reveal key={`g-${it.code}`} delay={index * 0.04} amount={0.15}>
+                  <li>
                     <figure className="group m-0">
                     <div className="overflow-hidden rounded-lg border border-hairline bg-surface">
                       <img
@@ -168,6 +172,7 @@ function CategoryGalleries({ active }: { active: string }) {
                     </figcaption>
                     </figure>
                   </li>
+                  </Reveal>
                 ))}
               </ul>
             </section>

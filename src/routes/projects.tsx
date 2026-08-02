@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { PageHero, Section, SectionHead } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta-band";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT, useLocale } from "@/i18n/i18n";
 
@@ -77,23 +78,24 @@ function ProjectsPage() {
       <Section>
         <div className="overflow-hidden rounded-xl border border-hairline">
           {PROJECTS.map((p, i) => (
-            <article
-              key={p.clientEn}
-              className={`grid gap-6 p-8 md:grid-cols-[1.2fr_1.6fr_auto] md:items-start md:gap-10 md:p-10 ${i > 0 ? "border-t border-hairline" : ""}`}
-            >
-              <div>
-                <div className="eyebrow text-accent">{isAr ? p.industryAr : p.industryEn}</div>
-                <h3 className="mt-3 text-2xl font-semibold text-primary">{isAr ? p.clientAr : p.clientEn}</h3>
-                <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                  <span>{p.year}</span>
-                  <span>{isAr ? p.volumeAr : p.volumeEn}</span>
+            <Reveal key={p.clientEn} delay={i * 0.06} amount={0.1}>
+              <article
+                className={`grid gap-6 p-8 md:grid-cols-[1.2fr_1.6fr_auto] md:items-start md:gap-10 md:p-10 ${i > 0 ? "border-t border-hairline" : ""}`}
+              >
+                <div>
+                  <div className="eyebrow text-accent">{isAr ? p.industryAr : p.industryEn}</div>
+                  <h3 className="mt-3 text-2xl font-semibold text-primary">{isAr ? p.clientAr : p.clientEn}</h3>
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                    <span>{p.year}</span>
+                    <span>{isAr ? p.volumeAr : p.volumeEn}</span>
+                  </div>
                 </div>
-              </div>
-              <p className="text-base leading-relaxed text-muted-foreground">{isAr ? p.scopeAr : p.scopeEn}</p>
-              <div className="grid h-11 w-11 place-items-center rounded-full border border-hairline text-primary md:justify-self-end">
-                <ArrowUpRight className="h-5 w-5" />
-              </div>
-            </article>
+                <p className="text-base leading-relaxed text-muted-foreground">{isAr ? p.scopeAr : p.scopeEn}</p>
+                <div className="grid h-11 w-11 place-items-center rounded-full border border-hairline text-primary md:justify-self-end">
+                  <ArrowUpRight className="h-5 w-5" />
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
@@ -103,10 +105,12 @@ function ProjectsPage() {
             title={t(<>Long-term partners across infrastructure and industry.</>, <>شراكات طويلة الأمد في البنية التحتية والصناعة.</>)}
           />
           <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-hairline bg-hairline md:grid-cols-3 lg:grid-cols-6">
-            {["HCWW", "Suez Oil", "Nasr Auto", "Orascom", "EEHC", "Petrojet"].map((n) => (
-              <div key={n} className="grid aspect-[3/2] place-items-center bg-background text-lg font-semibold tracking-tight text-primary/60">
-                {n}
-              </div>
+            {["HCWW", "Suez Oil", "Nasr Auto", "Orascom", "EEHC", "Petrojet"].map((n, i) => (
+              <Reveal key={n} delay={i * 0.05} amount={0.15}>
+                <div className="grid aspect-[3/2] place-items-center bg-background text-lg font-semibold tracking-tight text-primary/60">
+                  {n}
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>

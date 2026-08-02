@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, Section, SectionHead } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta-band";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 import factoryFloor from "@/assets/factory-floor.jpg";
@@ -42,9 +43,11 @@ function FactoryPage() {
         )}
       />
 
-      <section className="relative">
-        <img src={factoryFloor} alt={t("Abu Ghali factory floor", "أرض مصنع أبو غالي")} loading="lazy" width={1920} height={1088} className="h-[60vh] w-full object-cover" />
-      </section>
+      <Reveal direction="up" amount={0.1}>
+        <section className="relative">
+          <img src={factoryFloor} alt={t("Abu Ghali factory floor", "أرض مصنع أبو غالي")} loading="lazy" width={1920} height={1088} className="h-[60vh] w-full object-cover" />
+        </section>
+      </Reveal>
 
       <Section>
         <SectionHead
@@ -52,17 +55,19 @@ function FactoryPage() {
           title={t(<>Six stations,<br />one accountable flow.</>, <>ست محطات،<br />بمسار إنتاجي واحد.</>)}
         />
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {STATIONS.map((s) => (
-            <div key={s.title} className="group overflow-hidden rounded-xl border border-hairline bg-background">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={s.image} alt={s.title} loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-                <div className="absolute left-4 top-4 rounded-md bg-black/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.2em] text-white">{s.n}</div>
+          {STATIONS.map((s, index) => (
+            <Reveal key={s.title} delay={index * 0.05} amount={0.1}>
+              <div className="group overflow-hidden rounded-xl border border-hairline bg-background">
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img src={s.image} alt={s.title} loading="lazy" width={1280} height={960} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                  <div className="absolute left-4 top-4 rounded-md bg-black/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.2em] text-white">{s.n}</div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold text-primary">{s.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-primary">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Section>

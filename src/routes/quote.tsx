@@ -24,6 +24,7 @@ import {
   Trash2
 } from "lucide-react";
 import { PageHero, Section } from "@/components/site/section";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT, useLocale } from "@/i18n/i18n";
 import { findItem, categoryAr, galleryFor, detailsFor } from "@/data/products";
@@ -183,6 +184,7 @@ function QuotePage() {
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.8fr]">
           {/* Side Info / Gallery */}
+          <Reveal direction="right" amount={0.15}>
           <aside className="space-y-6">
             {item && (
               <ProductGallery
@@ -254,8 +256,10 @@ function QuotePage() {
               </div>
             )}
           </aside>
+          </Reveal>
 
           {/* Form Wizard */}
+          <Reveal direction="left" delay={0.1} amount={0.15}>
           <div className="rounded-2xl border border-hairline bg-card shadow-sm p-6 md:p-10 relative overflow-hidden">
             {isSubmitted ? (
               <motion.div
@@ -693,6 +697,7 @@ function QuotePage() {
               </form>
             )}
           </div>
+          </Reveal>
         </div>
       </Section>
     </>

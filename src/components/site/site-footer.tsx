@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { AGLogo } from "./ag-logo";
+import { Reveal } from "./reveal";
 import { useT } from "@/i18n/i18n";
 
 export function SiteFooter() {
@@ -71,26 +72,10 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-[#081729] text-primary-foreground">
-      <div className="border-b border-white/10">
-        <div className="container-x flex flex-col items-start justify-between gap-5 py-8 md:flex-row md:items-center md:py-10">
-          <div className="max-w-xl">
-            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
-              {t("Send us your drawings — quotation in 48 hours.", "أرسل رسوماتك — عرض السعر خلال 48 ساعة.")}
-            </h2>
-            <p className="mt-2 text-sm text-white/60">
-              {t("Engineering review included with every request.", "مراجعة هندسية مجانية مع كل طلب.")}
-            </p>
-          </div>
-          <Link
-            to="/quote"
-            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground transition hover:bg-accent/90"
-          >
-            {t("Request a quote", "اطلب عرض سعر")}
-          </Link>
-        </div>
-      </div>
+
 
       {/* Main */}
+      <Reveal direction="up" amount={0.1}>
       <div className="container-x grid gap-12 py-14 lg:grid-cols-[1fr_2.2fr]">
         <div>
           <div className="flex items-center gap-3">
@@ -135,24 +120,28 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label={t("Footer", "روابط التذييل") as string} className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {columns.map((col) => (
-            <div key={String(col.title)}>
-              <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{col.title}</h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-white/75">
-                {col.links.map((l, i) => (
-                  <li key={`${col.title}-${i}`}>
-                    <Link to={l.to} className="inline-flex min-h-[36px] items-center transition hover:text-accent">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {columns.map((col, colIndex) => (
+            <Reveal key={String(col.title)} delay={0.1 + colIndex * 0.05} amount={0.1}>
+              <div>
+                <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">{col.title}</h3>
+                <ul className="mt-4 space-y-2.5 text-sm text-white/75">
+                  {col.links.map((l, i) => (
+                    <li key={`${col.title}-${i}`}>
+                      <Link to={l.to} className="inline-flex min-h-[36px] items-center transition hover:text-accent">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           ))}
         </nav>
       </div>
+      </Reveal>
 
       {/* Bottom bar */}
+      <Reveal direction="up" amount={0.1}>
       <div className="border-t border-white/10">
         <div className="container-x flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-6 text-xs text-white/50">
           <span>
@@ -169,6 +158,7 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
+      </Reveal>
     </footer>
   );
 }

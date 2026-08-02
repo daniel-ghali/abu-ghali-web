@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
 import { PageHero, Section, SectionHead } from "@/components/site/section";
 import { CtaBand } from "@/components/site/cta-band";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 import qualityInspection from "@/assets/quality-inspection.jpg";
@@ -40,38 +41,42 @@ function QualityPage() {
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-          <div className="overflow-hidden rounded-xl border border-hairline">
-            <img src={qualityInspection} alt={t("Quality inspection at Abu Ghali", "الفحص والجودة داخل أبو غالي")} loading="lazy" width={1280} height={960} className="w-full object-cover" />
-          </div>
-          <div>
-            <div className="eyebrow-accent">
-              <span className="inline-block h-px w-6 bg-accent" />
-              {t("ISO 9001 aligned", "متوافق مع ISO 9001")}
+          <Reveal direction="left" amount={0.15}>
+            <div className="overflow-hidden rounded-xl border border-hairline">
+              <img src={qualityInspection} alt={t("Quality inspection at Abu Ghali", "الفحص والجودة داخل أبو غالي")} loading="lazy" width={1280} height={960} className="w-full object-cover" />
             </div>
-            <h2 className="mt-5 text-4xl font-semibold leading-tight text-primary md:text-5xl">
-              {t(<>A quality system<br />built for regulated buyers.</>, <>نظام جودة<br />مصمم للقطاعات المنظمة.</>)}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              {t(
-                "Our quality management system is aligned to ISO 9001 and structured around the requirements of regulated buyers — water utilities, oil & gas operators, automotive OEMs and government infrastructure programmes.",
-                "نظام إدارة الجودة لدينا متوافق مع ISO 9001 ومصمم وفق متطلبات القطاعات المنظّمة — هيئات المياه، شركات النفط والغاز، شركات السيارات، والبرامج الحكومية.",
-              )}
-            </p>
-            <ul className="mt-8 space-y-3 text-primary">
-              {[
-                t("EN 10204 3.1 material certification", "شهادات خامات EN 10204 3.1"),
-                t("CMM-inspected dimensional reports", "تقارير أبعاد بفحص CMM"),
-                t("Full batch traceability from mill to shipment", "تتبّع كامل للدفعة من المصنع حتى الشحن"),
-                t("Calibrated instruments on documented schedules", "أدوات معايرة بجداول موثقة"),
-                t("Documented non-conformance and corrective action", "توثيق عدم المطابقة والإجراءات التصحيحية"),
-              ].map((i, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-base">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
+          </Reveal>
+          <Reveal direction="right" delay={0.1} amount={0.15}>
+            <div>
+              <div className="eyebrow-accent">
+                <span className="inline-block h-px w-6 bg-accent" />
+                {t("ISO 9001 aligned", "متوافق مع ISO 9001")}
+              </div>
+              <h2 className="mt-5 text-4xl font-semibold leading-tight text-primary md:text-5xl">
+                {t(<>A quality system<br />built for regulated buyers.</>, <>نظام جودة<br />مصمم للقطاعات المنظمة.</>)}
+              </h2>
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+                {t(
+                  "Our quality management system is aligned to ISO 9001 and structured around the requirements of regulated buyers — water utilities, oil & gas operators, automotive OEMs and government infrastructure programmes.",
+                  "نظام إدارة الجودة لدينا متوافق مع ISO 9001 ومصمم وفق متطلبات القطاعات المنظّمة — هيئات المياه، شركات النفط والغاز، شركات السيارات، والبرامج الحكومية.",
+                )}
+              </p>
+              <ul className="mt-8 space-y-3 text-primary">
+                {[
+                  t("EN 10204 3.1 material certification", "شهادات خامات EN 10204 3.1"),
+                  t("CMM-inspected dimensional reports", "تقارير أبعاد بفحص CMM"),
+                  t("Full batch traceability from mill to shipment", "تتبّع كامل للدفعة من المصنع حتى الشحن"),
+                  t("Calibrated instruments on documented schedules", "أدوات معايرة بجداول موثقة"),
+                  t("Documented non-conformance and corrective action", "توثيق عدم المطابقة والإجراءات التصحيحية"),
+                ].map((i, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-base">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </Section>
 
@@ -82,12 +87,14 @@ function QualityPage() {
             title={t(<>Six checkpoints,<br />zero shortcuts.</>, <>ست نقاط فحص،<br />بلا اختصارات.</>)}
           />
           <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {STEPS.map((s) => (
-              <div key={s.n} className="rounded-xl border border-hairline bg-background p-8">
-                <div className="num-display text-3xl font-semibold text-accent">{s.n}</div>
-                <h3 className="mt-4 text-lg font-semibold text-primary">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
-              </div>
+            {STEPS.map((s, index) => (
+              <Reveal key={s.n} delay={index * 0.05} amount={0.1}>
+                <div className="rounded-xl border border-hairline bg-background p-8">
+                  <div className="num-display text-3xl font-semibold text-accent">{s.n}</div>
+                  <h3 className="mt-4 text-lg font-semibold text-primary">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>

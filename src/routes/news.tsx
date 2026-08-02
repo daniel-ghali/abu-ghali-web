@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, Section } from "@/components/site/section";
+import { Reveal } from "@/components/site/reveal";
 import { routeSeo } from "@/lib/seo";
 import { useT } from "@/i18n/i18n";
 import factoryFloor from "@/assets/factory-floor.jpg";
@@ -42,16 +43,18 @@ function NewsPage() {
       />
       <Section>
         <div className="grid gap-8 md:grid-cols-2">
-          {ITEMS.map((n) => (
-            <article key={n.title} className="group overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img src={n.image} alt={n.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-8">
-                <div className="eyebrow text-accent">{n.date}</div>
-                <h3 className="mt-4 text-2xl font-semibold leading-snug text-primary">{n.title}</h3>
-              </div>
-            </article>
+          {ITEMS.map((n, index) => (
+            <Reveal key={n.title} delay={index * 0.08} amount={0.15}>
+              <article className="group overflow-hidden rounded-xl border border-hairline bg-background transition hover:border-primary/30">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img src={n.image} alt={n.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                </div>
+                <div className="p-8">
+                  <div className="eyebrow text-accent">{n.date}</div>
+                  <h3 className="mt-4 text-2xl font-semibold leading-snug text-primary">{n.title}</h3>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
       </Section>
