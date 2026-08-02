@@ -49,11 +49,10 @@ export function Reveal({
   amount?: number;
   offset?: number;
 }) {
-  const isDesktop = useDesktopReveal();
   const shouldReduceMotion = useReducedMotion();
 
   const getInitial = () => {
-    if (!isDesktop || shouldReduceMotion) return { opacity: 1, x: 0, y: 0 };
+    if (shouldReduceMotion) return { opacity: 1, x: 0, y: 0 };
     switch (direction) {
       case "up":
         return { opacity: 0.96, y: offset };
@@ -73,8 +72,8 @@ export function Reveal({
     <motion.div
       className={cn(className)}
       initial={getInitial()}
-      whileInView={isDesktop && !shouldReduceMotion ? { opacity: 1, x: 0, y: 0 } : undefined}
-      viewport={isDesktop && !shouldReduceMotion ? { once, amount } : undefined}
+      whileInView={!shouldReduceMotion ? { opacity: 1, x: 0, y: 0 } : undefined}
+      viewport={!shouldReduceMotion ? { once, amount } : undefined}
       transition={{ duration, delay, ease: "easeOut" }}
     >
       {children}

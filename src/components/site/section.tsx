@@ -28,14 +28,12 @@ export function Section({
   className?: string;
   bleed?: boolean;
 }) {
-  const isDesktop = useDesktopReveal();
-
   return (
     <motion.section
       className={cn("py-16 sm:py-20 md:py-28", className)}
-      initial={isDesktop ? { opacity: 0.96, y: 18 } : { opacity: 1, y: 0 }}
-      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-      viewport={isDesktop ? { once: true, amount: 0.18 } : undefined}
+      initial={{ opacity: 0.96, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       {bleed ? children : <div className="container-x">{children}</div>}
@@ -54,17 +52,15 @@ export function SectionHead({
   intro?: ReactNode;
   align?: "left" | "center";
 }) {
-  const isDesktop = useDesktopReveal();
-
   return (
     <motion.div
       className={cn(
         "max-w-3xl",
         align === "center" && "mx-auto text-center",
       )}
-      initial={isDesktop ? { opacity: 0.96, y: 16 } : { opacity: 1, y: 0 }}
-      whileInView={isDesktop ? { opacity: 1, y: 0 } : undefined}
-      viewport={isDesktop ? { once: true, amount: 0.25 } : undefined}
+      initial={{ opacity: 0.96, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     >
       {eyebrow ? (
@@ -94,14 +90,12 @@ export function PageHero({
   title: ReactNode;
   intro?: ReactNode;
 }) {
-  const isDesktop = useDesktopReveal();
-
   return (
     <motion.section
       className="relative overflow-hidden bg-primary text-primary-foreground"
-      initial={isDesktop ? { opacity: 0.9 } : { opacity: 1 }}
-      whileInView={isDesktop ? { opacity: 1 } : undefined}
-      viewport={isDesktop ? { once: false, amount: 0.2 } : undefined}
+      initial={{ opacity: 0.9 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 1, ease: "easeOut" }}
     >
       <div className="grid-lines absolute inset-0 opacity-[0.06]" />
